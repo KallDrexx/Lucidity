@@ -2,24 +2,25 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework;
-using Lucidity.Engine.Data;
-using Lucidity.Engine.Parsers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucidity.Engine.Exceptions;
+using Lucidity.Engine.Parsers;
+using Lucidity.Engine.Data;
 
 namespace Lucidity.Tests.Parsers
 {
-    [TestFixture]
-    public class PipeDelimiteLogParserTests
+    [TestClass]
+    public class PipeDelimitedLogParserTests
     {
-        [Test]
+        [TestMethod]
+        [DeploymentItem(@"TestData\pipeLogTest.txt")]
         public void Can_Parse_Pipe_Delimited_Logs()
         {
             // Setup
             var parser = new PipeDelimitedLogParser();
 
             // Act
-            IList<LogRecord> result = parser.ParseLog(@"TestData\PipeLogTest.txt");
+            IList<LogRecord> result = parser.ParseLog("PipeLogTest.txt");
 
             // Verify
             Assert.IsNotNull(result, "Parser returned a null result");
@@ -38,7 +39,7 @@ namespace Lucidity.Tests.Parsers
             Assert.AreEqual("Field2-3", result[1].Fields[2].StringValue, "The third field of the second recod was incorrect");
         }
 
-        [Test]
+        [TestMethod]
         [ExpectedException(typeof(LogSourceNotAvailableException))]
         public void Throws_LogSourceNotAvailableException_When_File_Doesnt_Exist()
         {
