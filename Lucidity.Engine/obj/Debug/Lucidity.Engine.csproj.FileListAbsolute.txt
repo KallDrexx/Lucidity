@@ -1,0 +1,5 @@
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Engine\bin\Debug\Lucidity.Engine.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Engine\bin\Debug\Lucidity.Engine.pdb
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Engine\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Engine\obj\Debug\Lucidity.Engine.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Engine\obj\Debug\Lucidity.Engine.pdb

@@ -1,0 +1,12 @@
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\TestData\PipeLogTest.txt
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\Lucidity.Tests.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\Lucidity.Tests.pdb
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\Lucidity.Engine.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\Lucidity.Engine.pdb
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\obj\Debug\Lucidity.Tests.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\obj\Debug\Lucidity.Tests.pdb
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\nunit.framework.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\nunit.mocks.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\pnunit.framework.dll
+C:\Users\KallDrexx\Documents\Visual Studio 2010\Projects\Lucidity\Lucidity.Tests\bin\Debug\nunit.framework.xml

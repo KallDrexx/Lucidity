@@ -9,6 +9,11 @@ namespace Lucidity.Engine.Parsers
     public interface ILogParser
     {
         /// <summary>
+        /// Friendly name for the log parser
+        /// </summary>
+        string ParserName { get; }
+
+        /// <summary>
         /// Parses log from the defined source
         /// </summary>
         /// <param name="logSource"></param>
