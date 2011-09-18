@@ -28,6 +28,7 @@ namespace Lucidity.Engine.Stores
         /// </summary>
         /// <param name="filters">List of filters to apply.  Can be null or empty for no filters to be used</param>
         /// <returns>Log Records that match the specified filters</returns>
+        /// <exception cref="FilterNotSupportedException">Thrown when the store does not support the specified server</exception>
         IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters);
     }
 }
