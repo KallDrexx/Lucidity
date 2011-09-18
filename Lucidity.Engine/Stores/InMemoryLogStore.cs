@@ -13,8 +13,16 @@ namespace Lucidity.Engine.Stores
 
         public string Name { get { return "In Memory Log Store"; } }
 
+        public void Initialize()
+        {
+            _logRecords = new List<LogRecord>();
+        }
+
         public void StoreLogRecord(LogRecord record)
         {
+            if (_logRecords == null)
+                Initialize();
+
             _logRecords.Add(record);
         }
 
@@ -54,7 +62,7 @@ namespace Lucidity.Engine.Stores
 
         #region Member Variables
 
-        protected IList<LogRecord> _logRecords = new List<LogRecord>();
+        protected IList<LogRecord> _logRecords;
 
         #endregion
     }

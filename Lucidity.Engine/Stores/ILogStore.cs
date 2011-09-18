@@ -18,6 +18,11 @@ namespace Lucidity.Engine.Stores
         string Name { get; }
 
         /// <summary>
+        /// Performs any initialization required for the log store
+        /// </summary>
+        void Initialize();
+
+        /// <summary>
         /// Adds log record to the store
         /// </summary>
         /// <param name="records"></param>
