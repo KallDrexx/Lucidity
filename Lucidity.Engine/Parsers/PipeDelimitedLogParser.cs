@@ -10,18 +10,15 @@ namespace Lucidity.Engine.Parsers
 {
     public class PipeDelimitedLogParser : ILogParser
     {
-        public string ParserName
-        {
-            get
-            {
-                return "Pipe Delimited Log Parser";
-            }
-        }
+        public string ParserName { get { return "Pipe Delimited Log Parser"; } }
 
-        public IList<LogRecord> ParseLog(string logSource)
+        public void ParseLog(string logSource)
         {
-            var recordList = new List<LogRecord>();
             string lineText;
+
+            // Make sure we have a valid delegate to store records with
+            if (StoreRecordMethod == null)
+                throw new InvalidOperationException("No method assigned for storing log records");
 
             // Make sure the log source is a valid file
             if (!File.Exists(logSource))
@@ -34,14 +31,15 @@ namespace Lucidity.Engine.Parsers
             while ((lineText = reader.ReadLine()) != null) 
             {
                 var record = new LogRecord();
-                recordList.Add(record);
 
                 string[] fields = lineText.Split('|');
                 foreach (string field in fields)
                     record.Fields.Add(new LogField { StringValue = field });
-            }
 
-            return recordList;
+                StoreRecordMethod(record);
+            }
         }
+
+        public StoreRecordDelegate StoreRecordMethod { get; set; }
     }
 }

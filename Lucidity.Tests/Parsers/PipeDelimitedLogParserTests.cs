@@ -18,25 +18,27 @@ namespace Lucidity.Tests.Parsers
         {
             // Setup
             var parser = new PipeDelimitedLogParser();
+            IList<LogRecord> records = new List<LogRecord>();
+
+            parser.StoreRecordMethod = (r => records.Add(r));
 
             // Act
-            IList<LogRecord> result = parser.ParseLog("PipeLogTest.txt");
+            parser.ParseLog("PipeLogTest.txt");
 
             // Verify
-            Assert.IsNotNull(result, "Parser returned a null result");
-            Assert.AreEqual(2, result.Count, "Parser returned an incorrect number of log records");
+            Assert.AreEqual(2, records.Count, "Parser returned an incorrect number of log records");
 
-            Assert.IsNotNull(result[0].Fields, "The first record had a null fields list");
-            Assert.AreEqual(3, result[0].Fields.Count, "The first record had an incorrect number of fields");
-            Assert.AreEqual("Field1-1", result[0].Fields[0].StringValue, "The first field of the first recod was incorrect");
-            Assert.AreEqual("Field1-2", result[0].Fields[1].StringValue, "The second field of the first recod was incorrect");
-            Assert.AreEqual("Field1-3", result[0].Fields[2].StringValue, "The third field of the first recod was incorrect");
+            Assert.IsNotNull(records[0].Fields, "The first record had a null fields list");
+            Assert.AreEqual(3, records[0].Fields.Count, "The first record had an incorrect number of fields");
+            Assert.AreEqual("Field1-1", records[0].Fields[0].StringValue, "The first field of the first recod was incorrect");
+            Assert.AreEqual("Field1-2", records[0].Fields[1].StringValue, "The second field of the first recod was incorrect");
+            Assert.AreEqual("Field1-3", records[0].Fields[2].StringValue, "The third field of the first recod was incorrect");
 
-            Assert.IsNotNull(result[1].Fields, "The second record had a null fields list");
-            Assert.AreEqual(3, result[1].Fields.Count, "The second record had an incorrect number of fields");
-            Assert.AreEqual("Field2-1", result[1].Fields[0].StringValue, "The first field of the second recod was incorrect");
-            Assert.AreEqual("Field2-2", result[1].Fields[1].StringValue, "The second field of the second recod was incorrect");
-            Assert.AreEqual("Field2-3", result[1].Fields[2].StringValue, "The third field of the second recod was incorrect");
+            Assert.IsNotNull(records[1].Fields, "The second record had a null fields list");
+            Assert.AreEqual(3, records[1].Fields.Count, "The second record had an incorrect number of fields");
+            Assert.AreEqual("Field2-1", records[1].Fields[0].StringValue, "The first field of the second recod was incorrect");
+            Assert.AreEqual("Field2-2", records[1].Fields[1].StringValue, "The second field of the second recod was incorrect");
+            Assert.AreEqual("Field2-3", records[1].Fields[2].StringValue, "The third field of the second recod was incorrect");
         }
 
         [TestMethod]
@@ -45,9 +47,22 @@ namespace Lucidity.Tests.Parsers
         {
             // Setup
             var parser = new PipeDelimitedLogParser();
+            parser.StoreRecordMethod = (r => { });
 
             // Act
-            IList<LogRecord> result = parser.ParseLog(@"InvalidFileName.txt");
+            parser.ParseLog(@"InvalidFileName.txt");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        [DeploymentItem(@"TestData\pipeLogTest.txt")]
+        public void Throws_InvalidOperationException_When_No_Store_Record_Delegate_Set()
+        {
+            // Setup
+            var parser = new PipeDelimitedLogParser();
+
+            // Act
+            parser.ParseLog("pipeLogTest.txt");
         }
     }
 }

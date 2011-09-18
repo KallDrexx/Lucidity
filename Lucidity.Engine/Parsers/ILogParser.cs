@@ -6,10 +6,16 @@ using Lucidity.Engine.Data;
 
 namespace Lucidity.Engine.Parsers
 {
+    /// <summary>
+    /// Delegate used to push a log record into the log store
+    /// </summary>
+    /// <param name="record"></param>
+    public delegate void StoreRecordDelegate(LogRecord record);
+
     public interface ILogParser
     {
         /// <summary>
-        /// Friendly name for the log parser
+        /// Display name for the log parser
         /// </summary>
         string ParserName { get; }
 
@@ -18,6 +24,13 @@ namespace Lucidity.Engine.Parsers
         /// </summary>
         /// <param name="logSource"></param>
         /// <returns>Returns a collection of record from the log</returns>
-        IList<LogRecord> ParseLog(string logSource);
+        /// <exception cref="LogSourceNotAvailableException">Thrown when the log source is not available</exception>
+        /// <exception cref="InvalidOperationException">Thrown when no delegate is set for storing log records</exception>
+        void ParseLog(string logSource);
+
+        /// <summary>
+        /// Method used to store log records as they are parsed
+        /// </summary>
+        StoreRecordDelegate StoreRecordMethod { get; set; }
     }
 }
