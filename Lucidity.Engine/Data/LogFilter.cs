@@ -12,7 +12,17 @@ namespace Lucidity.Engine.Data
         /// <summary>
         /// Column the filter should be applied to
         /// </summary>
-        public int ColumnNumber { get; set; }
+        public string FilteredColumn { get; set; }
+
+        /// <summary>
+        /// Determines if the filter is inclusive or exclusive
+        /// </summary>
+        public bool ExclusiveFilter { get; set; }
+
+        /// <summary>
+        /// Type of filter to apply
+        /// </summary>
+        public LogFilterType FilterType { get; set; }
 
         /// <summary>
         /// Text to filter the log record by

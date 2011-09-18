@@ -48,6 +48,7 @@
     <Compile Include="Parsers\PipeDelimitedLogParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\ILogStore.cs" />
+    <Compile Include="Stores\InMemoryLogStore.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

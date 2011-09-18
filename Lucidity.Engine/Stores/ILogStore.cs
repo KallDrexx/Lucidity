@@ -13,16 +13,21 @@ namespace Lucidity.Engine.Stores
     public interface ILogStore
     {
         /// <summary>
-        /// Adds log records to the store
+        /// Display name for the log store
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// Adds log record to the store
         /// </summary>
         /// <param name="records"></param>
-        void StoreLogRecords(IList<LogRecord> records);
+        void StoreLogRecord(LogRecord record);
 
         /// <summary>
         /// Retrieves log records based on the specified filters
         /// </summary>
         /// <param name="filters">List of filters to apply.  Can be null or empty for no filters to be used</param>
-        /// <returns></returns>
-        DataTable GetFilteredRecords(IList<LogFilter> filters);
+        /// <returns>Log Records that match the specified filters</returns>
+        IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters);
     }
 }
