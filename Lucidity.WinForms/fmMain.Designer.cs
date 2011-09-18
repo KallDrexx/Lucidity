@@ -147,11 +147,13 @@
             // 
             // grvResults
             // 
+            this.grvResults.AllowUserToAddRows = false;
             this.grvResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.grvResults.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grvResults.Location = new System.Drawing.Point(3, 16);
             this.grvResults.Name = "grvResults";
+            this.grvResults.ReadOnly = true;
             this.grvResults.Size = new System.Drawing.Size(516, 340);
             this.grvResults.TabIndex = 0;
             // 
