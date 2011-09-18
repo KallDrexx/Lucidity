@@ -33,8 +33,9 @@ namespace Lucidity.Engine.Parsers
                 var record = new LogRecord();
 
                 string[] fields = lineText.Split('|');
-                foreach (string field in fields)
-                    record.Fields.Add(new LogField { StringValue = field });
+
+                for (int x = 0; x < fields.Length; x++)
+                    record.Fields.Add(new LogField { StringValue = fields[x], FieldName = "Field " + x });
 
                 StoreRecordMethod(record);
             }

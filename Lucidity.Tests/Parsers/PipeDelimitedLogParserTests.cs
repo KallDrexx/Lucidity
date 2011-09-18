@@ -64,5 +64,24 @@ namespace Lucidity.Tests.Parsers
             // Act
             parser.ParseLog("pipeLogTest.txt");
         }
+
+        [TestMethod]
+        [DeploymentItem(@"TestData\pipeLogTest.txt")]
+        public void Parser_Sets_Field_Names_Based_On_Order()
+        {
+            // Setup
+            var parser = new PipeDelimitedLogParser();
+            IList<LogRecord> records = new List<LogRecord>();
+
+            parser.StoreRecordMethod = (r => records.Add(r));
+
+            // Act
+            parser.ParseLog("PipeLogTest.txt");
+
+            // Verify
+            foreach (var record in records)
+                for (int x = 0; x < record.Fields.Count; x++)
+                    Assert.AreEqual("Field " + x, record.Fields[x].FieldName, "Field name was incorrect");
+        }
     }
 }
