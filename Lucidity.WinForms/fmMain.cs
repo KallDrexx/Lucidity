@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Lucidity.Engine.Parsers;
 using Lucidity.Engine.Stores;
 using Lucidity.Engine.Utils;
+using Lucidity.WinForms.Extensions;
 
 namespace Lucidity.WinForms
 {
@@ -56,11 +57,14 @@ namespace Lucidity.WinForms
             parser.StoreRecordMethod = store.StoreLogRecord;
             store.Initialize();
 
-            // Run the parser
+            // Run the parser and get the results
             grvResults.Enabled = false;
-            parser.ParseLog(txtLogSource.Text);
-            grvResults.Enabled = true;
 
+            parser.ParseLog(txtLogSource.Text);
+            var records = store.GetFilteredRecords(null);
+            grvResults.DataSource = records.ToDataTable();
+
+            grvResults.Enabled = true;
             MessageBox.Show("Log successfully parsed and stored");
         }
 

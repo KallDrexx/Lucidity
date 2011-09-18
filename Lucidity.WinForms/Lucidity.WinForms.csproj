@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LogRecordExtensions.cs" />
     <Compile Include="fmMain.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -147,13 +147,12 @@
             // 
             // grvResults
             // 
-            this.grvResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grvResults.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.grvResults.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grvResults.Location = new System.Drawing.Point(0, 19);
+            this.grvResults.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.grvResults.Location = new System.Drawing.Point(3, 16);
             this.grvResults.Name = "grvResults";
-            this.grvResults.Size = new System.Drawing.Size(516, 334);
+            this.grvResults.Size = new System.Drawing.Size(516, 340);
             this.grvResults.TabIndex = 0;
             // 
             // btnParseLog

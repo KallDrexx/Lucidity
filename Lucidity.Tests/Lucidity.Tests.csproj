@@ -38,6 +38,8 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.XML" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
@@ -45,6 +47,7 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LogRecordExtensionsTests.cs" />
     <Compile Include="Parsers\PipeDelimitedLogParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\InMemoryLogStoreTests.cs" />
@@ -60,6 +63,10 @@
     <ProjectReference Include="..\Lucidity.Engine\Lucidity.Engine.csproj">
       <Project>{86286D7B-D344-4D2A-BD13-D977307B939A}</Project>
       <Name>Lucidity.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Lucidity.WinForms\Lucidity.WinForms.csproj">
+      <Project>{B9FF4BE8-EFC8-4E24-BFB7-A7726E61001C}</Project>
+      <Name>Lucidity.WinForms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
