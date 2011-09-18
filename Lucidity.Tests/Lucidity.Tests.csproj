@@ -48,6 +48,8 @@
     <Compile Include="Parsers\PipeDelimitedLogParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\InMemoryLogStoreTests.cs" />
+    <Compile Include="Utils\LogParserUtilsTests.cs" />
+    <Compile Include="Utils\LogStoreUtilsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="TestData\PipeLogTest.txt">
