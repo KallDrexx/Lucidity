@@ -9,6 +9,6 @@ namespace Lucidity.Engine.Data
     {
         public string FieldName { get; set; }
         public string StringValue { get; set; }
-        public DateTime? DateValue { get; set; }
+        public DateTime DateValue { get; set; }
     }
 }

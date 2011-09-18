@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lucidity.Engine.Data;
+using Lucidity.Engine.Exceptions;
 
 namespace Lucidity.Engine.Stores
 {
@@ -33,6 +34,16 @@ namespace Lucidity.Engine.Stores
                         else
                             query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && y.StringValue.Contains(filter.TextFilter)));
                         break;
+
+                    case LogFilterType.DateFilter:
+                        if (filter.ExclusiveFilter)
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && (y.DateValue < filter.StartDate || y.DateValue > filter.EndDate)));
+                        else
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && (y.DateValue > filter.StartDate && y.DateValue < filter.EndDate)));
+                        break;
+
+                    default:
+                        throw new FilterNotSupportedException(filter.FilterType, this.GetType());
                 }
             }
 
