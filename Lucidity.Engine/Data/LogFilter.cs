@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Lucidity.Engine.Data
 {
-    public enum LogFilterType { TextFilter, DateFilter }
+    public enum LogFilterType { Text, Date }
 
     public class LogFilter
     {
@@ -15,10 +15,33 @@ namespace Lucidity.Engine.Data
             EndDate = DateTime.MaxValue;
         }
 
+        public override string ToString()
+        {
+            string criteriaString = string.Empty;
+
+            if (FilterType == LogFilterType.Text)
+            {
+                if (ExclusiveFilter)
+                    criteriaString = string.Format("text not containing '{0}'", TextFilter);
+                else
+                    criteriaString = string.Format("text containing '{0}'", TextFilter);
+            }
+
+            else if (FilterType == LogFilterType.Date)
+            {
+                if (ExclusiveFilter)
+                    criteriaString = string.Format("date not between {0} and {1}", StartDate.ToString(), EndDate.ToString());
+                else
+                    criteriaString = string.Format("date between {0} and {1}", StartDate.ToString(), EndDate.ToString());
+            }
+
+            return string.Format("Filtering {0} with {1}", FilteredFieldName, criteriaString);
+        }
+
         /// <summary>
         /// Column the filter should be applied to
         /// </summary>
-        public string FilteredColumn { get; set; }
+        public string FilteredFieldName { get; set; }
 
         /// <summary>
         /// Determines if the filter is inclusive or exclusive

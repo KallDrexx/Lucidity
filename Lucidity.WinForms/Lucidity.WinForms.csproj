@@ -46,7 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\DateTimeExtensions.cs" />
     <Compile Include="Extensions\LogRecordExtensions.cs" />
+    <Compile Include="fmEditFilter.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fmEditFilter.Designer.cs">
+      <DependentUpon>fmEditFilter.cs</DependentUpon>
+    </Compile>
     <Compile Include="fmMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -55,6 +62,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="fmEditFilter.resx">
+      <DependentUpon>fmEditFilter.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="fmMain.resx">
       <DependentUpon>fmMain.cs</DependentUpon>
     </EmbeddedResource>

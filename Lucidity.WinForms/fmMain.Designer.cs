@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnParseLog = new System.Windows.Forms.Button();
             this.btnBrowseLogSource = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,12 +37,17 @@
             this.cmbParsers = new System.Windows.Forms.ComboBox();
             this.txtLogSource = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.grpResults = new System.Windows.Forms.GroupBox();
             this.grvResults = new System.Windows.Forms.DataGridView();
-            this.btnParseLog = new System.Windows.Forms.Button();
+            this.grpFiltering = new System.Windows.Forms.GroupBox();
+            this.btnEditFilter = new System.Windows.Forms.Button();
+            this.btnRemoveFilter = new System.Windows.Forms.Button();
+            this.btnAddFilter = new System.Windows.Forms.Button();
+            this.lstFilters = new System.Windows.Forms.ListBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.grpResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvResults)).BeginInit();
+            this.grpFiltering.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -62,6 +68,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parameters";
+            // 
+            // btnParseLog
+            // 
+            this.btnParseLog.Location = new System.Drawing.Point(77, 107);
+            this.btnParseLog.Name = "btnParseLog";
+            this.btnParseLog.Size = new System.Drawing.Size(75, 23);
+            this.btnParseLog.TabIndex = 5;
+            this.btnParseLog.Text = "Parse Logs";
+            this.btnParseLog.UseVisualStyleBackColor = true;
+            this.btnParseLog.Click += new System.EventHandler(this.btnParseLog_Click);
             // 
             // btnBrowseLogSource
             // 
@@ -132,18 +148,18 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Log Source:";
             // 
-            // groupBox2
+            // grpResults
             // 
-            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.grpResults.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.grvResults);
-            this.groupBox2.Location = new System.Drawing.Point(12, 164);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(522, 359);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Results";
+            this.grpResults.Controls.Add(this.grvResults);
+            this.grpResults.Location = new System.Drawing.Point(12, 301);
+            this.grpResults.Name = "grpResults";
+            this.grpResults.Size = new System.Drawing.Size(522, 222);
+            this.grpResults.TabIndex = 1;
+            this.grpResults.TabStop = false;
+            this.grpResults.Text = "Results";
             // 
             // grvResults
             // 
@@ -154,33 +170,85 @@
             this.grvResults.Location = new System.Drawing.Point(3, 16);
             this.grvResults.Name = "grvResults";
             this.grvResults.ReadOnly = true;
-            this.grvResults.Size = new System.Drawing.Size(516, 340);
+            this.grvResults.Size = new System.Drawing.Size(516, 203);
             this.grvResults.TabIndex = 0;
             // 
-            // btnParseLog
+            // grpFiltering
             // 
-            this.btnParseLog.Location = new System.Drawing.Point(77, 107);
-            this.btnParseLog.Name = "btnParseLog";
-            this.btnParseLog.Size = new System.Drawing.Size(75, 23);
-            this.btnParseLog.TabIndex = 5;
-            this.btnParseLog.Text = "Parse Logs";
-            this.btnParseLog.UseVisualStyleBackColor = true;
-            this.btnParseLog.Click += new System.EventHandler(this.btnParseLog_Click);
+            this.grpFiltering.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpFiltering.Controls.Add(this.btnEditFilter);
+            this.grpFiltering.Controls.Add(this.btnRemoveFilter);
+            this.grpFiltering.Controls.Add(this.btnAddFilter);
+            this.grpFiltering.Controls.Add(this.lstFilters);
+            this.grpFiltering.Location = new System.Drawing.Point(15, 164);
+            this.grpFiltering.Name = "grpFiltering";
+            this.grpFiltering.Size = new System.Drawing.Size(513, 131);
+            this.grpFiltering.TabIndex = 1;
+            this.grpFiltering.TabStop = false;
+            this.grpFiltering.Text = "Filtering";
+            // 
+            // btnEditFilter
+            // 
+            this.btnEditFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnEditFilter.Enabled = false;
+            this.btnEditFilter.Location = new System.Drawing.Point(432, 73);
+            this.btnEditFilter.Name = "btnEditFilter";
+            this.btnEditFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnEditFilter.TabIndex = 3;
+            this.btnEditFilter.Text = "Edit";
+            this.btnEditFilter.UseVisualStyleBackColor = true;
+            this.btnEditFilter.Click += new System.EventHandler(this.btnEditFilter_Click);
+            // 
+            // btnRemoveFilter
+            // 
+            this.btnRemoveFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRemoveFilter.Enabled = false;
+            this.btnRemoveFilter.Location = new System.Drawing.Point(432, 102);
+            this.btnRemoveFilter.Name = "btnRemoveFilter";
+            this.btnRemoveFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveFilter.TabIndex = 2;
+            this.btnRemoveFilter.Text = "Remove";
+            this.btnRemoveFilter.UseVisualStyleBackColor = true;
+            this.btnRemoveFilter.Click += new System.EventHandler(this.btnRemoveFilter_Click);
+            // 
+            // btnAddFilter
+            // 
+            this.btnAddFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAddFilter.Location = new System.Drawing.Point(432, 19);
+            this.btnAddFilter.Name = "btnAddFilter";
+            this.btnAddFilter.Size = new System.Drawing.Size(75, 23);
+            this.btnAddFilter.TabIndex = 1;
+            this.btnAddFilter.Text = "Add";
+            this.btnAddFilter.UseVisualStyleBackColor = true;
+            this.btnAddFilter.Click += new System.EventHandler(this.btnAddFilter_Click);
+            // 
+            // lstFilters
+            // 
+            this.lstFilters.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstFilters.FormattingEnabled = true;
+            this.lstFilters.Location = new System.Drawing.Point(6, 17);
+            this.lstFilters.Name = "lstFilters";
+            this.lstFilters.Size = new System.Drawing.Size(420, 108);
+            this.lstFilters.TabIndex = 0;
             // 
             // fmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(546, 535);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.grpFiltering);
+            this.Controls.Add(this.grpResults);
             this.Controls.Add(this.groupBox1);
             this.Name = "fmMain";
             this.Text = "Lucidity - Log Analysis";
             this.Load += new System.EventHandler(this.fmMain_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
+            this.grpResults.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.grvResults)).EndInit();
+            this.grpFiltering.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -195,8 +263,13 @@
         private System.Windows.Forms.ComboBox cmbStores;
         private System.Windows.Forms.ComboBox cmbParsers;
         private System.Windows.Forms.TextBox txtLogSource;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox grpResults;
         private System.Windows.Forms.DataGridView grvResults;
         private System.Windows.Forms.Button btnParseLog;
+        private System.Windows.Forms.GroupBox grpFiltering;
+        private System.Windows.Forms.ListBox lstFilters;
+        private System.Windows.Forms.Button btnAddFilter;
+        private System.Windows.Forms.Button btnRemoveFilter;
+        private System.Windows.Forms.Button btnEditFilter;
     }
 }

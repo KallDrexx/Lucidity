@@ -51,7 +51,7 @@ namespace Lucidity.Tests.Stores
 
             var filter = new List<LogFilter>(
                 new LogFilter[] { 
-                    new LogFilter { FilteredColumn = "f2", TextFilter = "Pass", FilterType = LogFilterType.TextFilter, ExclusiveFilter = false } });
+                    new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = false } });
 
             // Act
             var result = store.GetFilteredRecords(filter);
@@ -80,7 +80,7 @@ namespace Lucidity.Tests.Stores
 
             var filter = new List<LogFilter>(
                 new LogFilter[] { 
-                    new LogFilter { FilteredColumn = "f2", TextFilter = "Pass", FilterType = LogFilterType.TextFilter, ExclusiveFilter = true } });
+                    new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = true } });
 
             // Act
             var result = store.GetFilteredRecords(filter);
@@ -112,9 +112,9 @@ namespace Lucidity.Tests.Stores
                 { 
                     new LogFilter 
                     { 
-                        FilteredColumn = "f2", 
+                        FilteredFieldName = "f2", 
                         StartDate = new DateTime(2011, 2, 1),
-                        FilterType = LogFilterType.DateFilter, 
+                        FilterType = LogFilterType.Date, 
                         ExclusiveFilter = false 
                     } 
                 }
@@ -150,9 +150,9 @@ namespace Lucidity.Tests.Stores
                 { 
                     new LogFilter 
                     { 
-                        FilteredColumn = "f2", 
+                        FilteredFieldName = "f2", 
                         StartDate = new DateTime(2011, 2, 1),
-                        FilterType = LogFilterType.DateFilter, 
+                        FilterType = LogFilterType.Date, 
                         ExclusiveFilter = true 
                     } 
                 }
@@ -188,10 +188,10 @@ namespace Lucidity.Tests.Stores
                 { 
                     new LogFilter 
                     { 
-                        FilteredColumn = "f2", 
+                        FilteredFieldName = "f2", 
                         StartDate = new DateTime(2010, 12, 1),
                         EndDate = new DateTime(2011, 2, 1),
-                        FilterType = LogFilterType.DateFilter, 
+                        FilterType = LogFilterType.Date, 
                         ExclusiveFilter = false 
                     } 
                 }
@@ -227,10 +227,10 @@ namespace Lucidity.Tests.Stores
                 { 
                     new LogFilter 
                     { 
-                        FilteredColumn = "f2", 
+                        FilteredFieldName = "f2", 
                         StartDate = new DateTime(2010, 12, 1),
                         EndDate = new DateTime(2011, 2, 1),
-                        FilterType = LogFilterType.DateFilter, 
+                        FilterType = LogFilterType.Date, 
                         ExclusiveFilter = true 
                     } 
                 }

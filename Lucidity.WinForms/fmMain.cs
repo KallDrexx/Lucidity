@@ -10,6 +10,7 @@ using Lucidity.Engine.Parsers;
 using Lucidity.Engine.Stores;
 using Lucidity.Engine.Utils;
 using Lucidity.WinForms.Extensions;
+using Lucidity.Engine.Data;
 
 namespace Lucidity.WinForms
 {
@@ -24,6 +25,13 @@ namespace Lucidity.WinForms
 
         private void fmMain_Load(object sender, EventArgs e)
         {
+            grpFiltering.Enabled = false;
+            grpResults.Enabled = false;
+
+            _filters = new BindingList<LogFilter>();
+            _filters.ListChanged += this.FilterListChanged;
+            lstFilters.DataSource = _filters;
+
             // Retrieve the list of log parser and stores and bind the combo boxes to it
             _parsers = LogParserUtils.GetAvailableLogParsers();
             _stores = LogStoreUtils.GetAvailableLogStores();
@@ -53,19 +61,62 @@ namespace Lucidity.WinForms
 
             // Initialize and configure the parser and store
             var parser = cmbParsers.SelectedValue as ILogParser;
-            var store = cmbStores.SelectedValue as ILogStore;
-            parser.StoreRecordMethod = store.StoreLogRecord;
-            store.Initialize();
+            _currentStore = cmbStores.SelectedValue as ILogStore;
+            parser.StoreRecordMethod = _currentStore.StoreLogRecord;
+            _currentStore.Initialize();
 
             // Run the parser and get the results
-            grvResults.Enabled = false;
+            grpResults.Enabled = false;
+            grpFiltering.Enabled = false;
 
             parser.ParseLog(txtLogSource.Text);
-            var records = store.GetFilteredRecords(null);
-            grvResults.DataSource = records.ToDataTable();
+            UpdateLogResults();
+            _fieldNames = _currentStore.GetLogFieldNames();
 
-            grvResults.Enabled = true;
-            MessageBox.Show("Log successfully parsed and stored");
+            grpResults.Enabled = true;
+            grpFiltering.Enabled = true;
+        }
+
+        private void btnAddFilter_Click(object sender, EventArgs e)
+        {
+            var filterDlg = new fmEditFilter(new LogFilter(), _fieldNames);
+
+            if (filterDlg.ShowDialog() == DialogResult.OK)
+                _filters.Add(filterDlg.Filter);
+        }
+
+        private void btnEditFilter_Click(object sender, EventArgs e)
+        {
+            var filterDlg = new fmEditFilter(lstFilters.SelectedItem as LogFilter, _fieldNames);
+            if (filterDlg.ShowDialog() == DialogResult.OK)
+            {
+                _filters.Remove(lstFilters.SelectedItem as LogFilter);
+                _filters.Add(filterDlg.Filter);
+            }
+        }
+
+        private void btnRemoveFilter_Click(object sender, EventArgs e)
+        {
+            _filters.Remove(lstFilters.SelectedItem as LogFilter);
+        }
+
+        private void FilterListChanged(object sender, ListChangedEventArgs e)
+        {
+            // Check if the edit and remove list box buttons should be enabled or not
+            if (_filters.Count == 0)
+            {
+                btnEditFilter.Enabled = false;
+                btnRemoveFilter.Enabled = false;
+            }
+
+            else
+            {
+                btnEditFilter.Enabled = true;
+                btnRemoveFilter.Enabled = true;
+            }
+
+            // Re-fetch results based on the list of filters
+            UpdateLogResults();
         }
 
         #endregion
@@ -75,11 +126,15 @@ namespace Lucidity.WinForms
         protected IList<ILogParser> _parsers;
         protected IList<ILogStore> _stores;
 
+        protected IEnumerable<string> _fieldNames;
+        protected BindingList<LogFilter> _filters;
+        protected ILogStore _currentStore;
+
         #endregion
 
         #region Utility Methods
 
-        private bool ValidParameters()
+        protected bool ValidParameters()
         {
             // Validate the input fields
             if (string.IsNullOrWhiteSpace(txtLogSource.Text))
@@ -107,6 +162,12 @@ namespace Lucidity.WinForms
             }
 
             return true;
+        }
+
+        protected void UpdateLogResults()
+        {
+            var records = _currentStore.GetFilteredRecords(_filters);
+            grvResults.DataSource = records.ToDataTable();
         }
 
         #endregion

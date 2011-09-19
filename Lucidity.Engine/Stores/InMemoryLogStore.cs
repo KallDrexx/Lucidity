@@ -34,18 +34,18 @@ namespace Lucidity.Engine.Stores
             {
                 switch (filter.FilterType)
                 {
-                    case LogFilterType.TextFilter:
+                    case LogFilterType.Text:
                         if (filter.ExclusiveFilter)
-                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && !y.StringValue.Contains(filter.TextFilter)));
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName && !y.StringValue.Contains(filter.TextFilter)));
                         else
-                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && y.StringValue.Contains(filter.TextFilter)));
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName && y.StringValue.Contains(filter.TextFilter)));
                         break;
 
-                    case LogFilterType.DateFilter:
+                    case LogFilterType.Date:
                         if (filter.ExclusiveFilter)
-                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && (y.DateValue < filter.StartDate || y.DateValue > filter.EndDate)));
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName && (y.DateValue < filter.StartDate || y.DateValue > filter.EndDate)));
                         else
-                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredColumn && (y.DateValue > filter.StartDate && y.DateValue < filter.EndDate)));
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName && (y.DateValue > filter.StartDate && y.DateValue < filter.EndDate)));
                         break;
 
                     default:
