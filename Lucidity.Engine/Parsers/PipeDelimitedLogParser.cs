@@ -35,7 +35,13 @@ namespace Lucidity.Engine.Parsers
                 string[] fields = lineText.Split('|');
 
                 for (int x = 0; x < fields.Length; x++)
-                    record.Fields.Add(new LogField { StringValue = fields[x], FieldName = "Field " + x });
+                {
+                    DateTime parsedDate;
+                    if (!DateTime.TryParse(fields[x], out parsedDate))
+                        record.Fields.Add(new LogField { StringValue = fields[x], FieldName = "Field " + x });
+                    else
+                        record.Fields.Add(new LogField { StringValue = fields[x], DateValue = parsedDate, FieldName = "Field " + x });
+                }
 
                 StoreRecordMethod(record);
             }

@@ -83,5 +83,22 @@ namespace Lucidity.Tests.Parsers
                 for (int x = 0; x < record.Fields.Count; x++)
                     Assert.AreEqual("Field " + x, record.Fields[x].FieldName, "Field name was incorrect");
         }
+
+        [TestMethod]
+        [DeploymentItem(@"TestData\PipeWithDate.txt")]
+        public void Parser_Sets_Date_Field_With_Valid_Dates()
+        {
+            // Setup
+            var parser = new PipeDelimitedLogParser();
+            var records = new List<LogRecord>();
+            parser.StoreRecordMethod = (r => records.Add(r));
+
+            // Act
+            parser.ParseLog("PipeWithDate.txt");
+
+            // Verify
+            Assert.AreEqual(new DateTime(2001, 5, 2, 23, 34, 15, 0), records[0].Fields[0].DateValue, "First field had an incorrect date");
+            Assert.AreEqual(new DateTime(2011, 9, 13, 13, 38, 35, 0), records[0].Fields[1].DateValue, "Second field had an incorrect date");
+        }
     }
 }
