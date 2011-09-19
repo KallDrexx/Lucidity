@@ -36,9 +36,15 @@ namespace Lucidity.Engine.Stores
                 {
                     case LogFilterType.Text:
                         if (filter.ExclusiveFilter)
-                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName && !y.StringValue.Contains(filter.TextFilter)));
+                        {
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName 
+                                                && y.StringValue.IndexOf(filter.TextFilter, 0, StringComparison.CurrentCultureIgnoreCase) < 0));
+                        }
                         else
-                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName && y.StringValue.Contains(filter.TextFilter)));
+                        {
+                            query = query.Where(x => x.Fields.Any(y => y.FieldName == filter.FilteredFieldName
+                                                && y.StringValue.IndexOf(filter.TextFilter, 0, StringComparison.CurrentCultureIgnoreCase) >= 0));
+                        }
                         break;
 
                     case LogFilterType.Date:

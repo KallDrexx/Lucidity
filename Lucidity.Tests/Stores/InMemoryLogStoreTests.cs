@@ -277,5 +277,49 @@ namespace Lucidity.Tests.Stores
             Assert.IsTrue(results.Contains("f2"), "List did not contain the field name 'f2'");
             Assert.IsTrue(results.Contains("f3"), "List did not contain the field name 'f3'");
         }
+
+        [TestMethod]
+        public void Inclusive_Text_Filter_Is_Case_Insensitive()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+            store.StoreLogRecord(new LogRecord { Fields = new List<LogField> { new LogField { StringValue = "ABC", FieldName = "field" }}});
+            var filter = new List<LogFilter> { new LogFilter 
+            { 
+                FilteredFieldName = "field", 
+                FilterType = LogFilterType.Text, 
+                ExclusiveFilter = false,
+                TextFilter = "abc"
+            }};
+
+            // Act
+            IList<LogRecord> results = store.GetFilteredRecords(filter);
+
+            // Verify
+            Assert.IsNotNull(results, "Store returned a null result");
+            Assert.AreEqual(1, results.Count, "Incorrect number of recods returned");
+        }
+
+        [TestMethod]
+        public void Exclusive_Text_Filter_Is_Case_Insensitive()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+            store.StoreLogRecord(new LogRecord { Fields = new List<LogField> { new LogField { StringValue = "ABC", FieldName = "field" } } });
+            var filter = new List<LogFilter> { new LogFilter 
+            { 
+                FilteredFieldName = "field", 
+                FilterType = LogFilterType.Text, 
+                ExclusiveFilter = true,
+                TextFilter = "abc"
+            }};
+
+            // Act
+            IList<LogRecord> results = store.GetFilteredRecords(filter);
+
+            // Verify
+            Assert.IsNotNull(results, "Store returned a null result");
+            Assert.AreEqual(0, results.Count, "Incorrect number of recods returned");
+        }
     }
 }
