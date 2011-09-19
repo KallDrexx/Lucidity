@@ -35,5 +35,11 @@ namespace Lucidity.Engine.Stores
         /// <returns>Log Records that match the specified filters</returns>
         /// <exception cref="FilterNotSupportedException">Thrown when the store does not support the specified server</exception>
         IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters);
+
+        /// <summary>
+        /// Retrieves a list of names for the fields in the log records
+        /// </summary>
+        /// <returns></returns>
+        IList<string> GetLogFieldNames();
     }
 }

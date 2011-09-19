@@ -9,8 +9,6 @@ namespace Lucidity.Engine.Stores
 {
     public class InMemoryLogStore : ILogStore
     {
-        #region Public Properties and Methods
-
         public string Name { get { return "In Memory Log Store"; } }
 
         public void Initialize()
@@ -58,7 +56,13 @@ namespace Lucidity.Engine.Stores
             return query.ToList();
         }
 
-        #endregion
+        public IList<string> GetLogFieldNames()
+        {
+            return _logRecords.SelectMany(x => x.Fields)
+                              .Select(x => x.FieldName)
+                              .Distinct()
+                              .ToList();
+        }
 
         #region Member Variables
 

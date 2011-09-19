@@ -243,5 +243,39 @@ namespace Lucidity.Tests.Stores
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
             Assert.AreEqual(record1, result[0], "Incorrect record returned");
         }
+
+        [TestMethod]
+        public void Can_Get_List_Of_Field_Names()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+            store.StoreLogRecord(new LogRecord
+            {
+                Fields = new List<LogField>
+                {
+                    new LogField { FieldName = "f1" },
+                    new LogField { FieldName = "f2" }
+                }
+            });
+
+            store.StoreLogRecord(new LogRecord
+            {
+                Fields = new List<LogField>
+                {
+                    new LogField { FieldName = "f2" },
+                    new LogField { FieldName = "f3" }
+                }
+            });
+
+            // Act
+            IList<string> results = store.GetLogFieldNames();
+
+            // Verify
+            Assert.IsNotNull(results, "Null list was returned");
+            Assert.AreEqual(3, results.Count, "List contained an incorrect number of elements");
+            Assert.IsTrue(results.Contains("f1"), "List did not contain the field name 'f1'");
+            Assert.IsTrue(results.Contains("f2"), "List did not contain the field name 'f2'");
+            Assert.IsTrue(results.Contains("f3"), "List did not contain the field name 'f3'");
+        }
     }
 }
