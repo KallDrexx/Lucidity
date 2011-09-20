@@ -141,6 +141,9 @@ namespace Lucidity.WinForms
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (!FilterIsValid())
+                return;
+
             this.DialogResult = DialogResult.OK;
             Close();
         }
@@ -152,6 +155,26 @@ namespace Lucidity.WinForms
         protected void UpdateFilterLabel()
         {
             lblFilterString.Text = Filter.ToString();
+        }
+
+        protected bool FilterIsValid()
+        {
+            string validationErrorCaption = "Filter Validation Error";
+
+            // Make sure any required fields are filled in
+            if (string.IsNullOrWhiteSpace(Filter.FilteredFieldName))
+            {
+                MessageBox.Show("A field name for the filter must be specified", validationErrorCaption);
+                return false;
+            }
+
+            if (Filter.FilterType == LogFilterType.Text && string.IsNullOrWhiteSpace(Filter.TextFilter))
+            {
+                MessageBox.Show("When specifying a text filter, you must have text to filter by", validationErrorCaption);
+                return false;
+            }
+
+            return true;
         }
 
         #endregion
