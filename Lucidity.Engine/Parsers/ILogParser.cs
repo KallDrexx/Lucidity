@@ -23,10 +23,10 @@ namespace Lucidity.Engine.Parsers
         /// Parses log from the defined source
         /// </summary>
         /// <param name="logSource"></param>
-        /// <returns>Returns a collection of record from the log</returns>
+        /// <returns>Generated session id value for the parsing session</returns>
         /// <exception cref="LogSourceNotAvailableException">Thrown when the log source is not available</exception>
         /// <exception cref="InvalidOperationException">Thrown when no delegate is set for storing log records</exception>
-        void ParseLog(string logSource);
+        Guid ParseLog(string logSource);
 
         /// <summary>
         /// Method used to store log records as they are parsed

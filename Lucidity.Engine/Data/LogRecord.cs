@@ -10,8 +10,9 @@ namespace Lucidity.Engine.Data
         public LogRecord()
         {
             Fields = new List<LogField>();
-        }  
+        }
 
+        public Guid SessionId { get; set; }
         public IList<LogField> Fields { get; set; }
     }
 }

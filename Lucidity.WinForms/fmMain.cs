@@ -69,7 +69,7 @@ namespace Lucidity.WinForms
             grpResults.Enabled = false;
             grpFiltering.Enabled = false;
 
-            parser.ParseLog(txtLogSource.Text);
+            _currentSessionId = parser.ParseLog(txtLogSource.Text);
             UpdateLogResults();
             _fieldNames = _currentStore.GetLogFieldNames();
 
@@ -129,6 +129,7 @@ namespace Lucidity.WinForms
         protected IEnumerable<string> _fieldNames;
         protected BindingList<LogFilter> _filters;
         protected ILogStore _currentStore;
+        protected Guid _currentSessionId;
 
         #endregion
 
@@ -166,7 +167,7 @@ namespace Lucidity.WinForms
 
         protected void UpdateLogResults()
         {
-            var records = _currentStore.GetFilteredRecords(_filters);
+            var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId);
             grvResults.DataSource = records.ToDataTable();
         }
 

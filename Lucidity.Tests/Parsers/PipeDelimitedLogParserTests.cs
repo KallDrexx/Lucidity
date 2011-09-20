@@ -100,5 +100,22 @@ namespace Lucidity.Tests.Parsers
             Assert.AreEqual(new DateTime(2001, 5, 2, 23, 34, 15, 0), records[0].Fields[0].DateValue, "First field had an incorrect date");
             Assert.AreEqual(new DateTime(2011, 9, 13, 13, 38, 35, 0), records[0].Fields[1].DateValue, "Second field had an incorrect date");
         }
+
+        [TestMethod]
+        [DeploymentItem(@"TestData\PipeLogTest.txt")]
+        public void Parser_Generates_Unique_Session_Id_And_Assigns_It_To_Records()
+        {
+            // Setup
+            var parser = new PipeDelimitedLogParser();
+            IList<LogRecord> records = new List<LogRecord>();
+            parser.StoreRecordMethod = (r => records.Add(r));
+
+            // Act
+            Guid sessionId = parser.ParseLog("PipeLogTest.txt");
+
+            // Verify
+            Assert.AreNotEqual(new Guid(), sessionId, "Session Id was incorrectly set to an empty GUID");
+            Assert.IsFalse(records.Any(x => x.SessionId != sessionId), "Not all log records were created with the correct session Id");
+        }
     }
 }

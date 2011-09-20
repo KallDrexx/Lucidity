@@ -24,9 +24,9 @@ namespace Lucidity.Engine.Stores
             _logRecords.Add(record);
         }
 
-        public IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters)
+        public IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters, Guid sessionId)
         {
-            var query = _logRecords.AsQueryable();
+            var query = _logRecords.AsQueryable().Where(x => x.SessionId == sessionId);
             filters = filters ?? new List<LogFilter>();
 
             // Go through each filter and apply them to the list

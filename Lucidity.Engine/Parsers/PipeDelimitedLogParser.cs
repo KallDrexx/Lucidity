@@ -12,9 +12,10 @@ namespace Lucidity.Engine.Parsers
     {
         public string ParserName { get { return "Pipe Delimited Log Parser"; } }
 
-        public void ParseLog(string logSource)
+        public Guid ParseLog(string logSource)
         {
             string lineText;
+            Guid sessionId = Guid.NewGuid(); // New session ID Per parse call
 
             // Make sure we have a valid delegate to store records with
             if (StoreRecordMethod == null)
@@ -30,7 +31,7 @@ namespace Lucidity.Engine.Parsers
             // Each line represents a separate log record, each field is delimited with a pipe
             while ((lineText = reader.ReadLine()) != null) 
             {
-                var record = new LogRecord();
+                var record = new LogRecord { SessionId = sessionId };
 
                 string[] fields = lineText.Split('|');
 
@@ -45,6 +46,8 @@ namespace Lucidity.Engine.Parsers
 
                 StoreRecordMethod(record);
             }
+
+            return sessionId;
         }
 
         public StoreRecordDelegate StoreRecordMethod { get; set; }
