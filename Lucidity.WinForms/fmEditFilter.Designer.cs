@@ -45,6 +45,8 @@
             this.btnSetEndDateNow = new System.Windows.Forms.Button();
             this.grpText = new System.Windows.Forms.GroupBox();
             this.grpDate = new System.Windows.Forms.GroupBox();
+            this.dtpEndTime = new System.Windows.Forms.DateTimePicker();
+            this.dtpStartTime = new System.Windows.Forms.DateTimePicker();
             this.grpText.SuspendLayout();
             this.grpDate.SuspendLayout();
             this.SuspendLayout();
@@ -52,7 +54,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(34, 58);
+            this.label1.Location = new System.Drawing.Point(9, 57);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 13);
             this.label1.TabIndex = 0;
@@ -65,7 +67,7 @@
             this.cmbFilterType.Items.AddRange(new object[] {
             "Text",
             "Date"});
-            this.cmbFilterType.Location = new System.Drawing.Point(99, 58);
+            this.cmbFilterType.Location = new System.Drawing.Point(74, 57);
             this.cmbFilterType.Name = "cmbFilterType";
             this.cmbFilterType.Size = new System.Drawing.Size(220, 21);
             this.cmbFilterType.TabIndex = 1;
@@ -73,16 +75,16 @@
             // 
             // txtFilterText
             // 
-            this.txtFilterText.Location = new System.Drawing.Point(90, 19);
+            this.txtFilterText.Location = new System.Drawing.Point(65, 19);
             this.txtFilterText.Name = "txtFilterText";
             this.txtFilterText.Size = new System.Drawing.Size(214, 20);
-            this.txtFilterText.TabIndex = 2;
+            this.txtFilterText.TabIndex = 4;
             this.txtFilterText.TextChanged += new System.EventHandler(this.txtFilterText_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(24, 19);
+            this.label2.Location = new System.Drawing.Point(-1, 19);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(60, 13);
             this.label2.TabIndex = 3;
@@ -90,40 +92,39 @@
             // 
             // dtpStartDateFilter
             // 
-            this.dtpStartDateFilter.CustomFormat = "MM/dd/yyyy hh:mm:ss";
-            this.dtpStartDateFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpStartDateFilter.Location = new System.Drawing.Point(90, 19);
+            this.dtpStartDateFilter.CustomFormat = "";
+            this.dtpStartDateFilter.Location = new System.Drawing.Point(65, 18);
             this.dtpStartDateFilter.Name = "dtpStartDateFilter";
-            this.dtpStartDateFilter.Size = new System.Drawing.Size(147, 20);
-            this.dtpStartDateFilter.TabIndex = 4;
+            this.dtpStartDateFilter.Size = new System.Drawing.Size(188, 20);
+            this.dtpStartDateFilter.TabIndex = 5;
             this.dtpStartDateFilter.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
-            this.dtpStartDateFilter.ValueChanged += new System.EventHandler(this.dtpStartDateFilter_ValueChanged);
+            this.dtpStartDateFilter.ValueChanged += new System.EventHandler(this.StartDateFilter_ValueChanged);
             // 
             // dtpEndDateFilter
             // 
-            this.dtpEndDateFilter.CustomFormat = "MM/dd/yyyy hh:mm:ss";
-            this.dtpEndDateFilter.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpEndDateFilter.Location = new System.Drawing.Point(90, 45);
+            this.dtpEndDateFilter.CustomFormat = "";
+            this.dtpEndDateFilter.Location = new System.Drawing.Point(65, 70);
+            this.dtpEndDateFilter.MaxDate = new System.DateTime(2200, 12, 31, 0, 0, 0, 0);
             this.dtpEndDateFilter.Name = "dtpEndDateFilter";
-            this.dtpEndDateFilter.Size = new System.Drawing.Size(147, 20);
-            this.dtpEndDateFilter.TabIndex = 5;
+            this.dtpEndDateFilter.Size = new System.Drawing.Size(188, 20);
+            this.dtpEndDateFilter.TabIndex = 8;
             this.dtpEndDateFilter.Value = new System.DateTime(2109, 12, 31, 0, 0, 0, 0);
-            this.dtpEndDateFilter.ValueChanged += new System.EventHandler(this.dtpEndDateFilter_ValueChanged);
+            this.dtpEndDateFilter.ValueChanged += new System.EventHandler(this.EndDateFilter_ValueChanged);
             // 
             // cmbFieldNames
             // 
             this.cmbFieldNames.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbFieldNames.FormattingEnabled = true;
-            this.cmbFieldNames.Location = new System.Drawing.Point(99, 85);
+            this.cmbFieldNames.Location = new System.Drawing.Point(74, 84);
             this.cmbFieldNames.Name = "cmbFieldNames";
             this.cmbFieldNames.Size = new System.Drawing.Size(220, 21);
-            this.cmbFieldNames.TabIndex = 7;
+            this.cmbFieldNames.TabIndex = 2;
             this.cmbFieldNames.SelectedIndexChanged += new System.EventHandler(this.cmbFieldNames_SelectedIndexChanged);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(30, 85);
+            this.label4.Location = new System.Drawing.Point(5, 84);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 8;
@@ -132,7 +133,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(32, 19);
+            this.label5.Location = new System.Drawing.Point(7, 18);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(52, 13);
             this.label5.TabIndex = 9;
@@ -141,7 +142,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(55, 45);
+            this.label6.Location = new System.Drawing.Point(30, 70);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 13);
             this.label6.TabIndex = 10;
@@ -150,20 +151,20 @@
             // chkExclusiveFilter
             // 
             this.chkExclusiveFilter.AutoSize = true;
-            this.chkExclusiveFilter.Location = new System.Drawing.Point(99, 112);
+            this.chkExclusiveFilter.Location = new System.Drawing.Point(74, 111);
             this.chkExclusiveFilter.Name = "chkExclusiveFilter";
             this.chkExclusiveFilter.Size = new System.Drawing.Size(96, 17);
-            this.chkExclusiveFilter.TabIndex = 11;
+            this.chkExclusiveFilter.TabIndex = 3;
             this.chkExclusiveFilter.Text = "Exclusive Filter";
             this.chkExclusiveFilter.UseVisualStyleBackColor = true;
             this.chkExclusiveFilter.CheckedChanged += new System.EventHandler(this.chkExclusiveFilter_CheckedChanged);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(244, 275);
+            this.btnSave.Location = new System.Drawing.Point(254, 327);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 12;
+            this.btnSave.TabIndex = 11;
             this.btnSave.Text = "Save Filter";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
@@ -178,20 +179,20 @@
             // 
             // btnSetStartDateNow
             // 
-            this.btnSetStartDateNow.Location = new System.Drawing.Point(243, 19);
+            this.btnSetStartDateNow.Location = new System.Drawing.Point(264, 19);
             this.btnSetStartDateNow.Name = "btnSetStartDateNow";
             this.btnSetStartDateNow.Size = new System.Drawing.Size(50, 23);
-            this.btnSetStartDateNow.TabIndex = 14;
+            this.btnSetStartDateNow.TabIndex = 7;
             this.btnSetStartDateNow.Text = "Now";
             this.btnSetStartDateNow.UseVisualStyleBackColor = true;
             this.btnSetStartDateNow.Click += new System.EventHandler(this.btnSetStartDateNow_Click);
             // 
             // btnSetEndDateNow
             // 
-            this.btnSetEndDateNow.Location = new System.Drawing.Point(243, 42);
+            this.btnSetEndDateNow.Location = new System.Drawing.Point(264, 70);
             this.btnSetEndDateNow.Name = "btnSetEndDateNow";
             this.btnSetEndDateNow.Size = new System.Drawing.Size(50, 23);
-            this.btnSetEndDateNow.TabIndex = 15;
+            this.btnSetEndDateNow.TabIndex = 10;
             this.btnSetEndDateNow.Text = "Now";
             this.btnSetEndDateNow.UseVisualStyleBackColor = true;
             this.btnSetEndDateNow.Click += new System.EventHandler(this.btnSetEndDateNow_Click);
@@ -202,13 +203,15 @@
             this.grpText.Controls.Add(this.label2);
             this.grpText.Location = new System.Drawing.Point(9, 134);
             this.grpText.Name = "grpText";
-            this.grpText.Size = new System.Drawing.Size(310, 52);
+            this.grpText.Size = new System.Drawing.Size(320, 52);
             this.grpText.TabIndex = 16;
             this.grpText.TabStop = false;
             this.grpText.Text = "Text Filters";
             // 
             // grpDate
             // 
+            this.grpDate.Controls.Add(this.dtpEndTime);
+            this.grpDate.Controls.Add(this.dtpStartTime);
             this.grpDate.Controls.Add(this.dtpStartDateFilter);
             this.grpDate.Controls.Add(this.dtpEndDateFilter);
             this.grpDate.Controls.Add(this.btnSetEndDateNow);
@@ -217,16 +220,37 @@
             this.grpDate.Controls.Add(this.label6);
             this.grpDate.Location = new System.Drawing.Point(9, 192);
             this.grpDate.Name = "grpDate";
-            this.grpDate.Size = new System.Drawing.Size(310, 77);
+            this.grpDate.Size = new System.Drawing.Size(320, 129);
             this.grpDate.TabIndex = 17;
             this.grpDate.TabStop = false;
             this.grpDate.Text = "Date Filters";
+            // 
+            // dtpEndTime
+            // 
+            this.dtpEndTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpEndTime.Location = new System.Drawing.Point(65, 99);
+            this.dtpEndTime.Name = "dtpEndTime";
+            this.dtpEndTime.ShowUpDown = true;
+            this.dtpEndTime.Size = new System.Drawing.Size(113, 20);
+            this.dtpEndTime.TabIndex = 9;
+            this.dtpEndTime.ValueChanged += new System.EventHandler(this.EndDateFilter_ValueChanged);
+            // 
+            // dtpStartTime
+            // 
+            this.dtpStartTime.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dtpStartTime.Location = new System.Drawing.Point(65, 44);
+            this.dtpStartTime.Name = "dtpStartTime";
+            this.dtpStartTime.ShowUpDown = true;
+            this.dtpStartTime.Size = new System.Drawing.Size(113, 20);
+            this.dtpStartTime.TabIndex = 6;
+            this.dtpStartTime.TabStop = false;
+            this.dtpStartTime.ValueChanged += new System.EventHandler(this.StartDateFilter_ValueChanged);
             // 
             // fmEditFilter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(329, 308);
+            this.ClientSize = new System.Drawing.Size(341, 362);
             this.Controls.Add(this.grpDate);
             this.Controls.Add(this.grpText);
             this.Controls.Add(this.lblFilterString);
@@ -267,5 +291,7 @@
         private System.Windows.Forms.Button btnSetEndDateNow;
         private System.Windows.Forms.GroupBox grpText;
         private System.Windows.Forms.GroupBox grpDate;
+        private System.Windows.Forms.DateTimePicker dtpEndTime;
+        private System.Windows.Forms.DateTimePicker dtpStartTime;
     }
 }

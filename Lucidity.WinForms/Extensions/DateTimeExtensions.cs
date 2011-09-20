@@ -16,7 +16,7 @@ namespace Lucidity.WinForms.Extensions
             if (dt < picker.MinDate)
                 return picker.MinDate;
             else if (dt > picker.MaxDate)
-                return picker.MaxDate;
+                return picker.MaxDate.AddTicks(-1); // Do one tick less so time pickers work
 
             return dt;
         }

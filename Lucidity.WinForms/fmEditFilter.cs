@@ -28,8 +28,6 @@ namespace Lucidity.WinForms
             _isLoading = true;
 
             cmbFieldNames.DataSource = _fieldNames;
-            dtpStartDateFilter.Value = dtpStartDateFilter.MinDate;
-            dtpEndDateFilter.Value = dtpEndDateFilter.MaxDate;
 
             // Setup the filter label to grow and word wrap
             lblFilterString.AutoSize = true;
@@ -39,7 +37,10 @@ namespace Lucidity.WinForms
             cmbFilterType.SelectedItem = Filter.FilterType == LogFilterType.Text ? "Text" : "Date";
             cmbFieldNames.SelectedItem = Filter.FilteredFieldName;
             dtpStartDateFilter.Value = Filter.StartDate.ToDatePickerValidDateTime(dtpStartDateFilter);
+            dtpStartTime.Value = Filter.StartDate.ToDatePickerValidDateTime(dtpStartTime);
             dtpEndDateFilter.Value = Filter.EndDate.ToDatePickerValidDateTime(dtpEndDateFilter);
+            dtpEndTime.Value = Filter.EndDate.ToDatePickerValidDateTime(dtpEndTime);
+
             txtFilterText.Text = Filter.TextFilter;
             chkExclusiveFilter.Checked = Filter.ExclusiveFilter;
 
@@ -77,6 +78,7 @@ namespace Lucidity.WinForms
                 return;
 
             dtpStartDateFilter.Value = DateTime.Now;
+            dtpStartTime.Value = DateTime.Now;
         }
 
         private void btnSetEndDateNow_Click(object sender, EventArgs e)
@@ -84,7 +86,8 @@ namespace Lucidity.WinForms
             if (_isLoading)
                 return;
 
-            dtpEndDateFilter.Value = DateTime.Now;
+            dtpEndDateFilter.Value = DateTime.Now.Date;
+            dtpEndTime.Value = DateTime.Now;
         }
 
         private void cmbFieldNames_SelectedIndexChanged(object sender, EventArgs e)
@@ -121,21 +124,21 @@ namespace Lucidity.WinForms
             UpdateFilterLabel();
         }
 
-        private void dtpStartDateFilter_ValueChanged(object sender, EventArgs e)
+        private void StartDateFilter_ValueChanged(object sender, EventArgs e)
         {
             if (_isLoading)
                 return;
 
-            Filter.StartDate = dtpStartDateFilter.Value;
+            Filter.StartDate = dtpStartDateFilter.Value.Date + dtpStartTime.Value.TimeOfDay;
             UpdateFilterLabel();
         }
 
-        private void dtpEndDateFilter_ValueChanged(object sender, EventArgs e)
+        private void EndDateFilter_ValueChanged(object sender, EventArgs e)
         {
             if (_isLoading)
                 return;
 
-            Filter.EndDate = dtpEndDateFilter.Value;
+            Filter.EndDate = dtpEndDateFilter.Value.Date + dtpEndTime.Value.TimeOfDay;
             UpdateFilterLabel();
         }
 
