@@ -9,6 +9,6 @@ namespace Lucidity.Engine.Parsers.Options
     {
         public string Name { get; set; }
         public Type PropertyType { get; set; }
-        public string CurrentValue { get; set; }
+        public object Value { get; set; }
     }
 }

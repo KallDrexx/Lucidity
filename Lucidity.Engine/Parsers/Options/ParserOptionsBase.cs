@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
 
 namespace Lucidity.Engine.Parsers.Options
 {
@@ -20,10 +21,20 @@ namespace Lucidity.Engine.Parsers.Options
                               {
                                   Name = p.Name,
                                   PropertyType = p.PropertyType,
-                                  CurrentValue = p.GetValue(this, null).ToString()
+                                  Value = p.GetValue(this, null)
                               })
                               .ToList();
             return options;
+        }
+
+        public void SetOptions(IEnumerable<ParserOption> options)
+        {
+            foreach (var opt in options)
+            {
+                // Match the option's name to the property name
+                var property = this.GetType().GetProperty(opt.Name);
+                property.SetValue(this, opt.Value, null);
+            }
         }
     }
 }
