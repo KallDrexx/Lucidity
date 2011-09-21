@@ -46,6 +46,8 @@
     <Compile Include="Exceptions\FilterNotSupportedException.cs" />
     <Compile Include="Exceptions\LogSourceNotAvailableException.cs" />
     <Compile Include="Parsers\ILogParser.cs" />
+    <Compile Include="Parsers\Options\ParserOption.cs" />
+    <Compile Include="Parsers\Options\ParserOptionsBase.cs" />
     <Compile Include="Parsers\PipeDelimitedLogParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Stores\ILogStore.cs" />
