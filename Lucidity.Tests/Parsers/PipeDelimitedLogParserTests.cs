@@ -7,7 +7,7 @@ using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Parsers;
 using Lucidity.Engine.Data;
 
-namespace Lucidity.Tests.Parsers
+namespace Lucidity.Tests.Options
 {
     [TestClass]
     public class PipeDelimitedLogParserTests
