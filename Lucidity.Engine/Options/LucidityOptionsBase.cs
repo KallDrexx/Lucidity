@@ -26,7 +26,9 @@ namespace Lucidity.Engine.Options
         /// <returns></returns>
         public IList<LucidityOption> GetOptions()
         {
-            CreateOptions();
+            if (_options == null)
+                SetupOptions();
+
             return _options;
         }
 
@@ -34,7 +36,7 @@ namespace Lucidity.Engine.Options
         /// Sets the value of all the properties to the value specified by their corresponding options
         /// </summary>
         /// <exception cref="OptionTypeMismatchException">Thrown when a property type is not supported by it's option type</exception>
-        public void SetOptionValues()
+        public void UpdateOptionValues()
         {
             if (_options == null)
                 return;
@@ -59,7 +61,7 @@ namespace Lucidity.Engine.Options
         
         #region Member Methods and Properties
 
-        private void CreateOptions()
+        private void SetupOptions()
         {
             _options = new List<LucidityOption>();
 

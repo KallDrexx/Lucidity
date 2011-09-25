@@ -51,7 +51,7 @@ namespace Lucidity.Tests.Options
             opts.Where(x => x.Name == "MyBool").First().Value = true;
 
             // Act
-            options.SetOptionValues();
+            options.UpdateOptionValues();
 
             // Verify
             Assert.AreEqual("test123", options.MyString, "Options.MyString had an incorrect value");
@@ -68,7 +68,7 @@ namespace Lucidity.Tests.Options
             opt.Where(x => x.Name == "MyString").First().Value = true;
 
             // Act
-            options.SetOptionValues();
+            options.UpdateOptionValues();
         }
     }
 }
