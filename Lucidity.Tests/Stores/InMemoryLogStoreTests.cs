@@ -5,6 +5,8 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucidity.Engine.Data;
 using Lucidity.Engine.Stores;
+using Lucidity.Engine.Options;
+using Lucidity.Engine.Options.Store;
 
 namespace Lucidity.Tests.Stores
 {
@@ -344,6 +346,19 @@ namespace Lucidity.Tests.Stores
             Assert.AreEqual(2, result.Count, "List returned an incorrect number of log records");
             Assert.IsTrue(result.Contains(record1), "List did not contain record1");
             Assert.IsTrue(result.Contains(record3), "List did not contain record3");
+        }
+
+        [TestMethod]
+        public void Store_Returns_Correct_Options_Type()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+
+            // Act
+            LucidityOptionsBase results = store.GetStoreOptions();
+
+            // Verify
+            Assert.IsInstanceOfType(results, typeof(InMemoryLogStoreOptions), "Log store's options was not the correct type");
         }
     }
 }

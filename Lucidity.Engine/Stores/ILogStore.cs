@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Lucidity.Engine.Data;
 using System.Data;
+using Lucidity.Engine.Options;
 
 namespace Lucidity.Engine.Stores
 {
@@ -42,5 +43,11 @@ namespace Lucidity.Engine.Stores
         /// </summary>
         /// <returns></returns>
         IList<string> GetLogFieldNames();
+
+        /// <summary>
+        /// Retrieves the options supported by the log store
+        /// </summary>
+        /// <returns></returns>
+        LucidityOptionsBase GetStoreOptions();
     }
 }

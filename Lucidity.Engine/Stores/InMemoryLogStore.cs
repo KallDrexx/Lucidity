@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using Lucidity.Engine.Data;
 using Lucidity.Engine.Exceptions;
+using Lucidity.Engine.Options;
+using Lucidity.Engine.Options.Store;
 
 namespace Lucidity.Engine.Stores
 {
@@ -70,9 +72,15 @@ namespace Lucidity.Engine.Stores
                               .ToList();
         }
 
+        public LucidityOptionsBase GetStoreOptions()
+        {
+            return _options;
+        }
+
         #region Member Variables
 
         protected IList<LogRecord> _logRecords;
+        protected InMemoryLogStoreOptions _options = new InMemoryLogStoreOptions();
 
         #endregion
     }
