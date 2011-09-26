@@ -6,6 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Parsers;
 using Lucidity.Engine.Data;
+using Lucidity.Engine.Options;
+using Lucidity.Engine.Options.Parser;
 
 namespace Lucidity.Tests.Options
 {
@@ -116,6 +118,19 @@ namespace Lucidity.Tests.Options
             // Verify
             Assert.AreNotEqual(new Guid(), sessionId, "Session Id was incorrectly set to an empty GUID");
             Assert.IsFalse(records.Any(x => x.SessionId != sessionId), "Not all log records were created with the correct session Id");
+        }
+
+        [TestMethod]
+        public void Parser_Returns_Correct_Options_Class()
+        {
+            // Setup
+            var parser = new PipeDelimitedLogParser();
+
+            // Act
+            LucidityOptionsBase results = parser.GetParserOptions();
+
+            // Verify
+            Assert.IsInstanceOfType(results, typeof(PipeDelimitedParserOptions), "Parser returned an incorrect options class type");
         }
     }
 }

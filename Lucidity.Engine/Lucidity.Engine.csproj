@@ -46,6 +46,7 @@
     <Compile Include="Exceptions\FilterNotSupportedException.cs" />
     <Compile Include="Exceptions\LogSourceNotAvailableException.cs" />
     <Compile Include="Exceptions\OptionTypeMismatchException.cs" />
+    <Compile Include="Options\Parser\PipeDelimitedParserOptions.cs" />
     <Compile Include="Parsers\ILogParser.cs" />
     <Compile Include="Options\LucidityOption.cs" />
     <Compile Include="Options\LucidityOptionsBase.cs" />

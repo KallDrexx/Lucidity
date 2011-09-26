@@ -5,11 +5,15 @@ using System.Text;
 using Lucidity.Engine.Data;
 using System.IO;
 using Lucidity.Engine.Exceptions;
+using Lucidity.Engine.Options;
+using Lucidity.Engine.Options.Parser;
 
 namespace Lucidity.Engine.Parsers
 {
     public class PipeDelimitedLogParser : ILogParser
     {
+        protected PipeDelimitedParserOptions _options = new PipeDelimitedParserOptions();
+
         public string ParserName { get { return "Pipe Delimited Log Parser"; } }
 
         public Guid ParseLog(string logSource)
@@ -51,5 +55,10 @@ namespace Lucidity.Engine.Parsers
         }
 
         public StoreRecordDelegate StoreRecordMethod { get; set; }
+
+        public LucidityOptionsBase GetParserOptions()
+        {
+            return _options;
+        }
     }
 }

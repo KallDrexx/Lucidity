@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lucidity.Engine.Data;
+using Lucidity.Engine.Options;
 
 namespace Lucidity.Engine.Parsers
 {
@@ -27,6 +28,12 @@ namespace Lucidity.Engine.Parsers
         /// <exception cref="LogSourceNotAvailableException">Thrown when the log source is not available</exception>
         /// <exception cref="InvalidOperationException">Thrown when no delegate is set for storing log records</exception>
         Guid ParseLog(string logSource);
+
+        /// <summary>
+        /// Retrieves the options class supported by the parser
+        /// </summary>
+        /// <returns></returns>
+        LucidityOptionsBase GetParserOptions();
 
         /// <summary>
         /// Method used to store log records as they are parsed
