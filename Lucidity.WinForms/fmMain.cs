@@ -119,6 +119,26 @@ namespace Lucidity.WinForms
             UpdateLogResults();
         }
 
+        private void btnParserOptions_Click(object sender, EventArgs e)
+        {
+            if (cmbParsers.SelectedItem == null)
+                return;
+
+            var fmOpts = new fmOptions((cmbParsers.SelectedValue as ILogParser).GetParserOptions().GetOptions());
+            fmOpts.ShowDialog();
+            (cmbParsers.SelectedValue as ILogParser).GetParserOptions().UpdateOptionValues();
+        }
+
+        private void btnStoreOptions_Click(object sender, EventArgs e)
+        {
+            if (cmbStores.SelectedItem == null)
+                return;
+
+            var fmOpts = new fmOptions((cmbStores.SelectedValue as ILogStore).GetStoreOptions().GetOptions());
+            fmOpts.ShowDialog();
+            (cmbStores.SelectedValue as ILogStore).GetStoreOptions().UpdateOptionValues();
+        }
+
         #endregion
 
         #region Member Variables

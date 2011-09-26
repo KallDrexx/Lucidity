@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnParserOptions = new System.Windows.Forms.Button();
             this.btnParseLog = new System.Windows.Forms.Button();
             this.btnBrowseLogSource = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
@@ -44,6 +45,7 @@
             this.btnRemoveFilter = new System.Windows.Forms.Button();
             this.btnAddFilter = new System.Windows.Forms.Button();
             this.lstFilters = new System.Windows.Forms.ListBox();
+            this.btnStoreOptions = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.grpResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvResults)).BeginInit();
@@ -54,6 +56,8 @@
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.btnStoreOptions);
+            this.groupBox1.Controls.Add(this.btnParserOptions);
             this.groupBox1.Controls.Add(this.btnParseLog);
             this.groupBox1.Controls.Add(this.btnBrowseLogSource);
             this.groupBox1.Controls.Add(this.label3);
@@ -69,12 +73,22 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parameters";
             // 
+            // btnParserOptions
+            // 
+            this.btnParserOptions.Location = new System.Drawing.Point(441, 52);
+            this.btnParserOptions.Name = "btnParserOptions";
+            this.btnParserOptions.Size = new System.Drawing.Size(75, 23);
+            this.btnParserOptions.TabIndex = 4;
+            this.btnParserOptions.Text = "Options";
+            this.btnParserOptions.UseVisualStyleBackColor = true;
+            this.btnParserOptions.Click += new System.EventHandler(this.btnParserOptions_Click);
+            // 
             // btnParseLog
             // 
             this.btnParseLog.Location = new System.Drawing.Point(77, 107);
             this.btnParseLog.Name = "btnParseLog";
             this.btnParseLog.Size = new System.Drawing.Size(75, 23);
-            this.btnParseLog.TabIndex = 5;
+            this.btnParseLog.TabIndex = 7;
             this.btnParseLog.Text = "Parse Logs";
             this.btnParseLog.UseVisualStyleBackColor = true;
             this.btnParseLog.Click += new System.EventHandler(this.btnParseLog_Click);
@@ -82,7 +96,7 @@
             // btnBrowseLogSource
             // 
             this.btnBrowseLogSource.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnBrowseLogSource.Location = new System.Drawing.Point(441, 26);
+            this.btnBrowseLogSource.Location = new System.Drawing.Point(441, 23);
             this.btnBrowseLogSource.Name = "btnBrowseLogSource";
             this.btnBrowseLogSource.Size = new System.Drawing.Size(75, 23);
             this.btnBrowseLogSource.TabIndex = 2;
@@ -117,7 +131,7 @@
             this.cmbStores.Location = new System.Drawing.Point(77, 80);
             this.cmbStores.Name = "cmbStores";
             this.cmbStores.Size = new System.Drawing.Size(358, 21);
-            this.cmbStores.TabIndex = 4;
+            this.cmbStores.TabIndex = 5;
             // 
             // cmbParsers
             // 
@@ -233,6 +247,16 @@
             this.lstFilters.Size = new System.Drawing.Size(420, 108);
             this.lstFilters.TabIndex = 0;
             // 
+            // btnStoreOptions
+            // 
+            this.btnStoreOptions.Location = new System.Drawing.Point(441, 80);
+            this.btnStoreOptions.Name = "btnStoreOptions";
+            this.btnStoreOptions.Size = new System.Drawing.Size(75, 23);
+            this.btnStoreOptions.TabIndex = 6;
+            this.btnStoreOptions.Text = "Options";
+            this.btnStoreOptions.UseVisualStyleBackColor = true;
+            this.btnStoreOptions.Click += new System.EventHandler(this.btnStoreOptions_Click);
+            // 
             // fmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -271,5 +295,7 @@
         private System.Windows.Forms.Button btnAddFilter;
         private System.Windows.Forms.Button btnRemoveFilter;
         private System.Windows.Forms.Button btnEditFilter;
+        private System.Windows.Forms.Button btnParserOptions;
+        private System.Windows.Forms.Button btnStoreOptions;
     }
 }
