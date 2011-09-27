@@ -126,7 +126,6 @@ namespace Lucidity.WinForms
 
             var fmOpts = new fmOptions((cmbParsers.SelectedValue as ILogParser).GetParserOptions().GetOptions());
             fmOpts.ShowDialog();
-            (cmbParsers.SelectedValue as ILogParser).GetParserOptions().UpdateOptionValues();
         }
 
         private void btnStoreOptions_Click(object sender, EventArgs e)
@@ -136,7 +135,6 @@ namespace Lucidity.WinForms
 
             var fmOpts = new fmOptions((cmbStores.SelectedValue as ILogStore).GetStoreOptions().GetOptions());
             fmOpts.ShowDialog();
-            (cmbStores.SelectedValue as ILogStore).GetStoreOptions().UpdateOptionValues();
         }
 
         #endregion

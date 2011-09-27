@@ -42,20 +42,32 @@ namespace Lucidity.Tests.Options
         }
 
         [TestMethod]
-        public void Can_Set_Parser_Options()
+        public void Can_Set_Option_Values()
         {
             // Setup
             var options = new TestParserOptions();
             var opts = options.GetOptions();
-            opts.Where(x => x.Name == "MyString").First().Value = "test123";
-            opts.Where(x => x.Name == "MyBool").First().Value = true;
 
             // Act
-            options.UpdateOptionValues();
+            opts.Where(x => x.Name == "MyString").First().Value = "test123";
+            opts.Where(x => x.Name == "MyBool").First().Value = true;
 
             // Verify
             Assert.AreEqual("test123", options.MyString, "Options.MyString had an incorrect value");
             Assert.AreEqual(true, options.MyBool, "Option.MyBool had an incorrect value");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(NullOptionValueNotAllowedException))]
+        public void NullOptionValueNotAllowedException_Thrown_When_Option_Value_Set_To_Null()
+        {
+            // Setup
+            var options = new TestParserOptions { MyString = "test123" };
+            var opts = options.GetOptions();
+
+            // Act
+            opts.Where(x => x.Name == "MyString").First().Value = null;
+
         }
 
         [TestMethod]
@@ -65,10 +77,9 @@ namespace Lucidity.Tests.Options
             // Setup
             var options = new TestParserOptions();
             var opt = options.GetOptions();
-            opt.Where(x => x.Name == "MyString").First().Value = true;
 
             // Act
-            options.UpdateOptionValues();
+            opt.Where(x => x.Name == "MyString").First().Value = true;
         }
     }
 }

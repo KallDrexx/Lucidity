@@ -45,6 +45,7 @@
     <Compile Include="Data\LogRecord.cs" />
     <Compile Include="Exceptions\FilterNotSupportedException.cs" />
     <Compile Include="Exceptions\LogSourceNotAvailableException.cs" />
+    <Compile Include="Exceptions\NullOptionValueNotAllowedException.cs" />
     <Compile Include="Exceptions\OptionTypeMismatchException.cs" />
     <Compile Include="Options\Parser\PipeDelimitedParserOptions.cs" />
     <Compile Include="Options\Store\InMemoryLogStoreOptions.cs" />
