@@ -137,12 +137,45 @@ namespace Lucidity.WinForms
             fmOpts.ShowDialog();
         }
 
+        private void grvResults_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
+        {
+            LogRecord record = null;
+
+            // Check if this record for this row is cached
+            if (_recordCache.ContainsKey(e.RowIndex))
+            {
+                record = _recordCache[e.RowIndex];
+            }
+
+            else
+            {
+                // Retrieve the record from the store
+                var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, 1, e.RowIndex);
+                if (records.Count > 0)
+                {
+                    record = records[0];
+
+                    // Store the record in the cache
+                    _recordCache.Add(e.RowIndex, record);
+                }
+            }
+
+            if (record != null)
+            {
+                // Match the cell to the field
+                string cellFieldName = grvResults.Columns[e.ColumnIndex].Name;
+                if (record.Fields.Any(x => x.FieldName.Equals(cellFieldName, StringComparison.CurrentCultureIgnoreCase)))
+                    e.Value = record.Fields.Where(x => x.FieldName.Equals(cellFieldName, StringComparison.CurrentCultureIgnoreCase)).Single().StringValue;
+            }
+        }
+
         #endregion
 
         #region Member Variables
 
         protected IList<ILogParser> _parsers;
         protected IList<ILogStore> _stores;
+        protected Dictionary<int, LogRecord> _recordCache;
 
         protected IEnumerable<string> _fieldNames;
         protected BindingList<LogFilter> _filters;
@@ -185,8 +218,18 @@ namespace Lucidity.WinForms
 
         protected void UpdateLogResults()
         {
-            var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, 10, 0);
-            grvResults.DataSource = records.ToDataTable();
+            // Set the columns
+            var fields = _currentStore.GetLogFieldNames();
+            grvResults.Columns.Clear();
+            foreach (var field in fields)
+                grvResults.Columns.Add(field, field);
+
+            // Set the number of rows
+            var recordCount = _currentStore.GetTotalRecordCount(_filters, _currentSessionId);
+            grvResults.RowCount = recordCount;
+
+            // Reset the record cache
+            _recordCache = new Dictionary<int, LogRecord>();
         }
 
         #endregion

@@ -197,6 +197,7 @@
             this.grvResults.Size = new System.Drawing.Size(516, 203);
             this.grvResults.TabIndex = 0;
             this.grvResults.VirtualMode = true;
+            this.grvResults.CellValueNeeded += new System.Windows.Forms.DataGridViewCellValueEventHandler(this.grvResults_CellValueNeeded);
             // 
             // grpFiltering
             // 
