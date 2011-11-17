@@ -339,7 +339,7 @@ namespace Lucidity.Tests.Stores
             store.StoreLogRecord(record3);
 
             // Act
-            IList<LogRecord> result = store.GetFilteredRecords(null, session1, 1, 0);
+            IList<LogRecord> result = store.GetFilteredRecords(null, session1, 2, 1);
 
             // Verify
             Assert.IsNotNull(result, "Null list was returned");
@@ -386,6 +386,83 @@ namespace Lucidity.Tests.Stores
             Assert.AreEqual(2, result.Count, "Result contained an incorrect number of elements");
             Assert.AreEqual(record3, result[0], "First result was incorrect");
             Assert.AreEqual(record4, result[1], "Second result was incorrect");
+        }
+
+        [TestMethod]
+        public void Can_Get_Total_Number_Of_Records()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+            var record1 = new LogRecord();
+            var record2 = new LogRecord();
+            var record3 = new LogRecord();
+            var record4 = new LogRecord();
+            var record5 = new LogRecord();
+            var record6 = new LogRecord();
+
+            store.StoreLogRecord(record1);
+            store.StoreLogRecord(record2);
+            store.StoreLogRecord(record3);
+            store.StoreLogRecord(record4);
+            store.StoreLogRecord(record5);
+            store.StoreLogRecord(record6);
+
+            // Act
+            int count = store.GetTotalRecordCount(null, new Guid());            
+
+            // Verify
+            Assert.AreEqual(6, count, "Total count was incorrect");
+        }
+
+        [TestMethod]
+        public void Can_Get_Total_Number_Of_Records_For_Session()
+        {
+            // Setup
+            Guid session1 = Guid.NewGuid(), session2 = Guid.NewGuid();
+            var store = new InMemoryLogStore();
+            var record1 = new LogRecord { SessionId = session1 };
+            var record2 = new LogRecord { SessionId = session2 };
+            var record3 = new LogRecord { SessionId = session2 };
+
+            store.StoreLogRecord(record1);
+            store.StoreLogRecord(record2);
+            store.StoreLogRecord(record3);
+
+            // Act
+            int s1Count = store.GetTotalRecordCount(null, session1);
+            int s2Count = store.GetTotalRecordCount(null, session2);
+
+            // Verify
+            Assert.AreEqual(1, s1Count, "Total count for session 1 was incorrect");
+            Assert.AreEqual(2, s2Count, "Total count for session 2 was incorrect");
+        }
+
+        [TestMethod]
+        public void Can_Get_Total_Number_For_Filtered_Records()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+            var record1 = new LogRecord();
+            var record2 = new LogRecord();
+            var record3 = new LogRecord();
+
+            record1.Fields.Add(new LogField { FieldName = "f1", StringValue = "Pass" });
+            record2.Fields.Add(new LogField { FieldName = "f1", StringValue = "Fail" });
+            record3.Fields.Add(new LogField { FieldName = "f1", StringValue = "Pass" });
+
+            store.StoreLogRecord(record1);
+            store.StoreLogRecord(record2);
+            store.StoreLogRecord(record3);
+
+            var filter = new List<LogFilter>(
+                new LogFilter[] { 
+                    new LogFilter { FilteredFieldName = "f1", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = false } });
+
+            // Act
+            int count = store.GetTotalRecordCount(filter, new Guid());
+
+            // Verify
+            Assert.AreEqual(2, count, "Total record count was incorrect");
         }
     }
 }

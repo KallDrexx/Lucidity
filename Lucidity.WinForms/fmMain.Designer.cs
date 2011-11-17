@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnStoreOptions = new System.Windows.Forms.Button();
             this.btnParserOptions = new System.Windows.Forms.Button();
             this.btnParseLog = new System.Windows.Forms.Button();
             this.btnBrowseLogSource = new System.Windows.Forms.Button();
@@ -45,7 +46,6 @@
             this.btnRemoveFilter = new System.Windows.Forms.Button();
             this.btnAddFilter = new System.Windows.Forms.Button();
             this.lstFilters = new System.Windows.Forms.ListBox();
-            this.btnStoreOptions = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.grpResults.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.grvResults)).BeginInit();
@@ -72,6 +72,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parameters";
+            // 
+            // btnStoreOptions
+            // 
+            this.btnStoreOptions.Location = new System.Drawing.Point(441, 80);
+            this.btnStoreOptions.Name = "btnStoreOptions";
+            this.btnStoreOptions.Size = new System.Drawing.Size(75, 23);
+            this.btnStoreOptions.TabIndex = 6;
+            this.btnStoreOptions.Text = "Options";
+            this.btnStoreOptions.UseVisualStyleBackColor = true;
+            this.btnStoreOptions.Click += new System.EventHandler(this.btnStoreOptions_Click);
             // 
             // btnParserOptions
             // 
@@ -186,6 +196,7 @@
             this.grvResults.ReadOnly = true;
             this.grvResults.Size = new System.Drawing.Size(516, 203);
             this.grvResults.TabIndex = 0;
+            this.grvResults.VirtualMode = true;
             // 
             // grpFiltering
             // 
@@ -246,16 +257,6 @@
             this.lstFilters.Name = "lstFilters";
             this.lstFilters.Size = new System.Drawing.Size(420, 108);
             this.lstFilters.TabIndex = 0;
-            // 
-            // btnStoreOptions
-            // 
-            this.btnStoreOptions.Location = new System.Drawing.Point(441, 80);
-            this.btnStoreOptions.Name = "btnStoreOptions";
-            this.btnStoreOptions.Size = new System.Drawing.Size(75, 23);
-            this.btnStoreOptions.TabIndex = 6;
-            this.btnStoreOptions.Text = "Options";
-            this.btnStoreOptions.UseVisualStyleBackColor = true;
-            this.btnStoreOptions.Click += new System.EventHandler(this.btnStoreOptions_Click);
             // 
             // fmMain
             // 

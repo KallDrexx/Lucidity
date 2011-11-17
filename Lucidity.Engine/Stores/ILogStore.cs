@@ -41,6 +41,14 @@ namespace Lucidity.Engine.Stores
         IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters, Guid sessionId, int pageSize, int pageNum);
 
         /// <summary>
+        /// Retrieves the total number of records in the store for the specified session and filters
+        /// </summary>
+        /// <param name="filters">List of filters to apply.  Can be null or empty for no filters to be used</param>
+        /// <param name="sessionId">Session ID for the logs to retrieve</param>
+        /// <returns></returns>
+        int GetTotalRecordCount(IList<LogFilter> filters, Guid sessionId);
+
+        /// <summary>
         /// Retrieves a list of names for the fields in the log records
         /// </summary>
         /// <returns></returns>
