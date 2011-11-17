@@ -34,9 +34,11 @@ namespace Lucidity.Engine.Stores
         /// </summary>
         /// <param name="filters">List of filters to apply.  Can be null or empty for no filters to be used</param>
         /// <param name="sessionId">Session ID for the logs to retrieve</param>
+        /// <param name="pageSize">Number of records in each results page</param>
+        /// <param name="pageNum">Page number (starting from 1) for the record set to retrieve</param>
         /// <returns>Log Records that match the specified filters</returns>
         /// <exception cref="FilterNotSupportedException">Thrown when the store does not support the specified server</exception>
-        IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters, Guid sessionId);
+        IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters, Guid sessionId, int pageSize, int pageNum);
 
         /// <summary>
         /// Retrieves a list of names for the fields in the log records

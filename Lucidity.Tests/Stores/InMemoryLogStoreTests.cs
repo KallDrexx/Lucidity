@@ -24,7 +24,7 @@ namespace Lucidity.Tests.Stores
             // Act
             store.StoreLogRecord(record1);
             store.StoreLogRecord(record2);
-            IList<LogRecord> result = store.GetFilteredRecords(null, new Guid());
+            IList<LogRecord> result = store.GetFilteredRecords(null, new Guid(), 2, 1);
 
             // Verify
             Assert.IsNotNull(result, "Store returned a null result");
@@ -55,7 +55,7 @@ namespace Lucidity.Tests.Stores
                     new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = false } });
 
             // Act
-            var result = store.GetFilteredRecords(filter, new Guid());
+            var result = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -84,7 +84,7 @@ namespace Lucidity.Tests.Stores
                     new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = true } });
 
             // Act
-            var result = store.GetFilteredRecords(filter, new Guid());
+            var result = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -122,7 +122,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = store.GetFilteredRecords(filter, new Guid());
+            var result = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -160,7 +160,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = store.GetFilteredRecords(filter, new Guid());
+            var result = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -199,7 +199,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = store.GetFilteredRecords(filter, new Guid());
+            var result = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -238,7 +238,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = store.GetFilteredRecords(filter, new Guid());
+            var result = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -294,7 +294,7 @@ namespace Lucidity.Tests.Stores
             }};
 
             // Act
-            IList<LogRecord> results = store.GetFilteredRecords(filter, new Guid());
+            IList<LogRecord> results = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.IsNotNull(results, "Store returned a null result");
@@ -316,7 +316,7 @@ namespace Lucidity.Tests.Stores
             }};
 
             // Act
-            IList<LogRecord> results = store.GetFilteredRecords(filter, new Guid());
+            IList<LogRecord> results = store.GetFilteredRecords(filter, new Guid(), 1, 0);
 
             // Verify
             Assert.IsNotNull(results, "Store returned a null result");
@@ -339,7 +339,7 @@ namespace Lucidity.Tests.Stores
             store.StoreLogRecord(record3);
 
             // Act
-            IList<LogRecord> result = store.GetFilteredRecords(null, session1);
+            IList<LogRecord> result = store.GetFilteredRecords(null, session1, 1, 0);
 
             // Verify
             Assert.IsNotNull(result, "Null list was returned");
@@ -359,6 +359,33 @@ namespace Lucidity.Tests.Stores
 
             // Verify
             Assert.IsInstanceOfType(results, typeof(InMemoryLogStoreOptions), "Log store's options was not the correct type");
+        }
+
+        [TestMethod]
+        public void Store_Retrieves_Records_In_Specified_Page()
+        {
+            // Setup
+            var store = new InMemoryLogStore();
+            var record1 = new LogRecord();
+            var record2 = new LogRecord();
+            var record3 = new LogRecord();
+            var record4 = new LogRecord();
+            var record5 = new LogRecord();
+            var record6 = new LogRecord();
+
+            // Act
+            store.StoreLogRecord(record1);
+            store.StoreLogRecord(record2);
+            store.StoreLogRecord(record3);
+            store.StoreLogRecord(record4);
+            store.StoreLogRecord(record5);
+            store.StoreLogRecord(record6);
+            IList<LogRecord> result = store.GetFilteredRecords(null, new Guid(), 2, 2);
+
+            // Verify
+            Assert.AreEqual(2, result.Count, "Result contained an incorrect number of elements");
+            Assert.AreEqual(record3, result[0], "First result was incorrect");
+            Assert.AreEqual(record4, result[1], "Second result was incorrect");
         }
     }
 }

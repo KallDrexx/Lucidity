@@ -185,7 +185,7 @@ namespace Lucidity.WinForms
 
         protected void UpdateLogResults()
         {
-            var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId);
+            var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, 10, 0);
             grvResults.DataSource = records.ToDataTable();
         }
 

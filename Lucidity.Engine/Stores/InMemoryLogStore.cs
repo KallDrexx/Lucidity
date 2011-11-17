@@ -26,7 +26,7 @@ namespace Lucidity.Engine.Stores
             _logRecords.Add(record);
         }
 
-        public IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters, Guid sessionId)
+        public IList<LogRecord> GetFilteredRecords(IList<LogFilter> filters, Guid sessionId, int pageSize, int pageNum)
         {
             var query = _logRecords.AsQueryable().Where(x => x.SessionId == sessionId);
             filters = filters ?? new List<LogFilter>();
@@ -61,7 +61,7 @@ namespace Lucidity.Engine.Stores
                 }
             }
 
-            return query.ToList();
+            return query.Skip((pageNum - 1) * pageSize).Take(pageSize).ToList();
         }
 
         public IList<string> GetLogFieldNames()
