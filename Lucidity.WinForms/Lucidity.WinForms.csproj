@@ -101,6 +101,10 @@
       <Project>{86286D7B-D344-4D2A-BD13-D977307B939A}</Project>
       <Name>Lucidity.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lucidity.StandardTypes\Lucidity.StandardTypes.csproj">
+      <Project>{42BD7B16-CD36-4D41-9D8E-541E03491D54}</Project>
+      <Name>Lucidity.StandardTypes</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

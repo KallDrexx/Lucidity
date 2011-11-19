@@ -8,6 +8,7 @@ using Lucidity.Engine.Parsers;
 using Lucidity.Engine.Data;
 using Lucidity.Engine.Options;
 using Lucidity.Engine.Options.Parser;
+using Lucidity.StandardTypes.Parsers;
 
 namespace Lucidity.Tests.Options
 {

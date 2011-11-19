@@ -7,6 +7,7 @@ using Lucidity.Engine.Data;
 using Lucidity.Engine.Stores;
 using Lucidity.Engine.Options;
 using Lucidity.Engine.Options.Store;
+using Lucidity.StandardTypes.Stores;
 
 namespace Lucidity.Tests.Stores
 {

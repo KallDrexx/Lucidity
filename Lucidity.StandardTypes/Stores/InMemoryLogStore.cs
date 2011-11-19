@@ -7,8 +7,9 @@ using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Options;
 using Lucidity.Engine.Options.Store;
 using System.ComponentModel.Composition;
+using Lucidity.Engine.Stores;
 
-namespace Lucidity.Engine.Stores
+namespace Lucidity.StandardTypes.Stores
 {
     [Export(typeof(ILogStore))]
     public class InMemoryLogStore : ILogStore

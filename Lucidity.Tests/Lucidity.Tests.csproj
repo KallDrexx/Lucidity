@@ -68,6 +68,10 @@
       <Project>{86286D7B-D344-4D2A-BD13-D977307B939A}</Project>
       <Name>Lucidity.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Lucidity.StandardTypes\Lucidity.StandardTypes.csproj">
+      <Project>{42BD7B16-CD36-4D41-9D8E-541E03491D54}</Project>
+      <Name>Lucidity.StandardTypes</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Lucidity.WinForms\Lucidity.WinForms.csproj">
       <Project>{B9FF4BE8-EFC8-4E24-BFB7-A7726E61001C}</Project>
       <Name>Lucidity.WinForms</Name>
