@@ -32,9 +32,21 @@ namespace Lucidity.WinForms
             _filters.ListChanged += this.FilterListChanged;
             lstFilters.DataSource = _filters;
 
-            // Retrieve the list of log parser and stores and bind the combo boxes to it
-            _parsers = LogParserUtils.GetAvailableLogParsers();
-            _stores = LogStoreUtils.GetAvailableLogStores();
+            // Retrieve the list of log parsers and stores and bind the combo boxes to it
+            var importer = new LucidityImporter();
+            _parsers = importer.LogParsers;
+            _stores = importer.LogStores;
+
+            if (_parsers.Count == 0 || _stores.Count == 0)
+            {
+                string message = string.Empty;
+                if (_parsers.Count == 0) { message += "No log parsers were found." + Environment.NewLine; }
+                if (_stores.Count == 0) { message += "No log stores were found. " + Environment.NewLine; }
+
+                btnParseLog.Enabled = false;
+                MessageBox.Show(message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             cmbParsers.DataSource = _parsers.Select(x => new { @Type = x, Name = x.ParserName }).ToList();
             cmbParsers.DisplayMember = "Name";

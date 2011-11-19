@@ -7,9 +7,11 @@ using System.IO;
 using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Options;
 using Lucidity.Engine.Options.Parser;
+using System.ComponentModel.Composition;
 
 namespace Lucidity.Engine.Parsers
 {
+    [Export(typeof(ILogParser))]
     public class PipeDelimitedLogParser : ILogParser
     {
         protected PipeDelimitedParserOptions _options = new PipeDelimitedParserOptions();

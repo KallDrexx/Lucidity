@@ -6,9 +6,11 @@ using Lucidity.Engine.Data;
 using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Options;
 using Lucidity.Engine.Options.Store;
+using System.ComponentModel.Composition;
 
 namespace Lucidity.Engine.Stores
 {
+    [Export(typeof(ILogStore))]
     public class InMemoryLogStore : ILogStore
     {
         public string Name { get { return "In Memory Log Store"; } }
