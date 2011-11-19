@@ -5,6 +5,7 @@ using System.Text;
 using Lucidity.Engine.Stores;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucidity.Engine.Data;
+using Lucidity.Engine.Options;
 
 namespace Lucidity.Tests.Stores
 {
@@ -14,6 +15,7 @@ namespace Lucidity.Tests.Stores
     public class StoreBaseTests
     {
         protected ILogStore _store;
+        protected Type _expectedOptionsType;
 
         [TestMethod]
         public void Can_Store_And_Retrieve_Log_Records()
@@ -431,6 +433,16 @@ namespace Lucidity.Tests.Stores
 
             // Verify
             Assert.AreEqual(2, count, "Total record count was incorrect");
+        }
+
+        [TestMethod]
+        public void Store_Returns_Correct_Options_Type()
+        {
+            // Act
+            LucidityOptionsBase results = _store.GetStoreOptions();
+
+            // Verify
+            Assert.IsInstanceOfType(results, _expectedOptionsType, "Log store's options was not the correct type");
         }
     }
 }
