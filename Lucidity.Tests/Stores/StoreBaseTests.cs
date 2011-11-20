@@ -58,7 +58,7 @@ namespace Lucidity.Tests.Stores
                     new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = false } });
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -86,7 +86,7 @@ namespace Lucidity.Tests.Stores
                     new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = true } });
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -123,7 +123,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -160,7 +160,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -198,7 +198,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -236,7 +236,7 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
@@ -269,7 +269,7 @@ namespace Lucidity.Tests.Stores
             });
 
             // Act
-            IList<string> results = _store.GetLogFieldNames();
+            IList<string> results = _store.GetLogFieldNames(new Guid());
 
             // Verify
             Assert.IsNotNull(results, "Null list was returned");
@@ -277,6 +277,45 @@ namespace Lucidity.Tests.Stores
             Assert.IsTrue(results.Contains("f1"), "List did not contain the field name 'f1'");
             Assert.IsTrue(results.Contains("f2"), "List did not contain the field name 'f2'");
             Assert.IsTrue(results.Contains("f3"), "List did not contain the field name 'f3'");
+        }
+
+        [TestMethod]
+        public void Only_Gets_Field_Names_For_Specified_Session()
+        {
+            // Setup
+            Guid session1 = Guid.NewGuid(), session2 = Guid.NewGuid();
+
+            _store.Initialize();
+            _store.StoreLogRecord(new LogRecord
+            {
+                RecordNumber = 1,
+                SessionId = session1,
+                Fields = new List<LogField>
+                {
+                    new LogField { FieldName = "f1" },
+                    new LogField { FieldName = "f2" }
+                }
+            });
+
+            _store.StoreLogRecord(new LogRecord
+            {
+                RecordNumber = 2,
+                SessionId = session2,
+                Fields = new List<LogField>
+                {
+                    new LogField { FieldName = "f2" },
+                    new LogField { FieldName = "f3" }
+                }
+            });
+
+            // Act
+            IList<string> results = _store.GetLogFieldNames(session2);
+
+            // Verify
+            Assert.IsNotNull(results, "Field name list was null");
+            Assert.AreEqual(2, results.Count, "Field name list had an incorrect number of elements");
+            Assert.IsTrue(results.Contains("f2"), "Field name list did not contain the f2 field");
+            Assert.IsTrue(results.Contains("f3"), "Field name list did not contain the f3 field");
         }
 
         [TestMethod]
@@ -294,7 +333,7 @@ namespace Lucidity.Tests.Stores
             }};
 
             // Act
-            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.IsNotNull(results, "Store returned a null result");
@@ -316,7 +355,7 @@ namespace Lucidity.Tests.Stores
             }};
 
             // Act
-            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
+            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 2, 1);
 
             // Verify
             Assert.IsNotNull(results, "Store returned a null result");
