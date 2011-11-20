@@ -83,7 +83,7 @@ namespace Lucidity.WinForms
 
             _currentSessionId = parser.ParseLog(txtLogSource.Text);
             UpdateLogResults();
-            _fieldNames = _currentStore.GetLogFieldNames();
+            _fieldNames = _currentStore.GetLogFieldNames(_currentSessionId);
 
             grpResults.Enabled = true;
             grpFiltering.Enabled = true;
@@ -231,7 +231,7 @@ namespace Lucidity.WinForms
         protected void UpdateLogResults()
         {
             // Set the columns
-            var fields = _currentStore.GetLogFieldNames();
+            var fields = _currentStore.GetLogFieldNames(_currentSessionId);
             grvResults.Columns.Clear();
             foreach (var field in fields)
                 grvResults.Columns.Add(field, field);

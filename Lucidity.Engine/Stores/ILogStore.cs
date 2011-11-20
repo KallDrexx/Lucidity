@@ -52,7 +52,7 @@ namespace Lucidity.Engine.Stores
         /// Retrieves a list of names for the fields in the log records
         /// </summary>
         /// <returns></returns>
-        IList<string> GetLogFieldNames();
+        IList<string> GetLogFieldNames(Guid sessionId);
 
         /// <summary>
         /// Retrieves the options supported by the log store

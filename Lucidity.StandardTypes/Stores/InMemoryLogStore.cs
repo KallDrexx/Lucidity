@@ -40,9 +40,10 @@ namespace Lucidity.StandardTypes.Stores
             return GetFilteredQuery(filters, sessionId).Count();
         }
 
-        public IList<string> GetLogFieldNames()
+        public IList<string> GetLogFieldNames(Guid sessionId)
         {
-            return _logRecords.SelectMany(x => x.Fields)
+            return _logRecords.Where(x => x.SessionId == sessionId)
+                              .SelectMany(x => x.Fields)
                               .Select(x => x.FieldName)
                               .Distinct()
                               .ToList();
