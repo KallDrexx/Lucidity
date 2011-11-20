@@ -21,8 +21,9 @@ namespace Lucidity.Tests.Stores
         public void Can_Store_And_Retrieve_Log_Records()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
+            _store.Initialize();
 
             // Act
             _store.StoreLogRecord(record1);
@@ -32,16 +33,17 @@ namespace Lucidity.Tests.Stores
             // Verify
             Assert.IsNotNull(result, "Store returned a null result");
             Assert.AreEqual(2, result.Count, "Store returned an incorrect number of records");
-            Assert.AreEqual(record1, result[0], "First record returned by the store was incorrect");
-            Assert.AreEqual(record2, result[1], "Second record returned by the store was incorect");
+            Assert.AreEqual(record1.RecordNumber, result[0].RecordNumber, "First record returned by the store was incorrect");
+            Assert.AreEqual(record2.RecordNumber, result[1].RecordNumber, "Second record returned by the store was incorect");
         }
 
         [TestMethod]
         public void Store_Can_Filter_Records_By_Inclusive_Text()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", StringValue = "Pass" });
             record1.Fields.Add(new LogField { FieldName = "f2", StringValue = "Fail" });
@@ -56,19 +58,20 @@ namespace Lucidity.Tests.Stores
                     new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = false } });
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
-            Assert.AreEqual(record2, result[0], "Incorrect record returned");
+            Assert.AreEqual(record2.RecordNumber, result[0].RecordNumber, "Incorrect record returned");
         }
 
         [TestMethod]
         public void Store_Can_Filter_Records_By_Exclusive_Text()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", StringValue = "Pass" });
             record1.Fields.Add(new LogField { FieldName = "f2", StringValue = "Fail" });
@@ -83,19 +86,20 @@ namespace Lucidity.Tests.Stores
                     new LogFilter { FilteredFieldName = "f2", TextFilter = "Pass", FilterType = LogFilterType.Text, ExclusiveFilter = true } });
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
-            Assert.AreEqual(record1, result[0], "Incorrect record returned");
+            Assert.AreEqual(record1.RecordNumber, result[0].RecordNumber, "Incorrect record returned");
         }
 
         [TestMethod]
         public void Store_Can_Filter_Records_By_Inclusive_Start_Date()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", DateValue = new DateTime(2011, 3, 1) });
             record1.Fields.Add(new LogField { FieldName = "f2", DateValue = new DateTime(2011, 1, 1) });
@@ -119,19 +123,20 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
-            Assert.AreEqual(record2, result[0], "Incorrect record returned");
+            Assert.AreEqual(record2.RecordNumber, result[0].RecordNumber, "Incorrect record returned");
         }
 
         [TestMethod]
         public void Store_Can_Filter_Records_By_Exclusive_Start_Date()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", DateValue = new DateTime(2011, 3, 1) });
             record1.Fields.Add(new LogField { FieldName = "f2", DateValue = new DateTime(2011, 1, 1) });
@@ -155,19 +160,20 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
-            Assert.AreEqual(record1, result[0], "Incorrect record returned");
+            Assert.AreEqual(record1.RecordNumber, result[0].RecordNumber, "Incorrect record returned");
         }
 
         [TestMethod]
         public void Store_Can_Filter_Records_By_Inclusive_Date_Range()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", DateValue = new DateTime(2011, 1, 1) });
             record1.Fields.Add(new LogField { FieldName = "f2", DateValue = new DateTime(2011, 3, 1) });
@@ -192,19 +198,20 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
-            Assert.AreEqual(record2, result[0], "Incorrect record returned");
+            Assert.AreEqual(record2.RecordNumber, result[0].RecordNumber, "Incorrect record returned");
         }
 
         [TestMethod]
         public void Store_Can_Filter_Records_By_Exclusive_Date_Range()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", DateValue = new DateTime(2011, 1, 1) });
             record1.Fields.Add(new LogField { FieldName = "f2", DateValue = new DateTime(2011, 3, 1) });
@@ -229,19 +236,21 @@ namespace Lucidity.Tests.Stores
             );
 
             // Act
-            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            var result = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.AreEqual(1, result.Count, "Incorrect number of records returned");
-            Assert.AreEqual(record1, result[0], "Incorrect record returned");
+            Assert.AreEqual(record1.RecordNumber, result[0].RecordNumber, "Incorrect record returned");
         }
 
         [TestMethod]
         public void Can_Get_List_Of_Field_Names()
         {
             // Setup
+            _store.Initialize();
             _store.StoreLogRecord(new LogRecord
             {
+                RecordNumber = 1,
                 Fields = new List<LogField>
                 {
                     new LogField { FieldName = "f1" },
@@ -251,6 +260,7 @@ namespace Lucidity.Tests.Stores
 
             _store.StoreLogRecord(new LogRecord
             {
+                RecordNumber = 2,
                 Fields = new List<LogField>
                 {
                     new LogField { FieldName = "f2" },
@@ -273,6 +283,7 @@ namespace Lucidity.Tests.Stores
         public void Inclusive_Text_Filter_Is_Case_Insensitive()
         {
             // Setup
+            _store.Initialize();
             _store.StoreLogRecord(new LogRecord { Fields = new List<LogField> { new LogField { StringValue = "ABC", FieldName = "field" } } });
             var filter = new List<LogFilter> { new LogFilter 
             { 
@@ -283,7 +294,7 @@ namespace Lucidity.Tests.Stores
             }};
 
             // Act
-            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.IsNotNull(results, "Store returned a null result");
@@ -294,6 +305,7 @@ namespace Lucidity.Tests.Stores
         public void Exclusive_Text_Filter_Is_Case_Insensitive()
         {
             // Setup
+            _store.Initialize();
             _store.StoreLogRecord(new LogRecord { Fields = new List<LogField> { new LogField { StringValue = "ABC", FieldName = "field" } } });
             var filter = new List<LogFilter> { new LogFilter 
             { 
@@ -304,7 +316,7 @@ namespace Lucidity.Tests.Stores
             }};
 
             // Act
-            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 1, 0);
+            IList<LogRecord> results = _store.GetFilteredRecords(filter, new Guid(), 1, 1);
 
             // Verify
             Assert.IsNotNull(results, "Store returned a null result");
@@ -315,11 +327,12 @@ namespace Lucidity.Tests.Stores
         public void Store_Only_Retrieves_Log_Records_With_Passed_In_Session_Id()
         {
             // Setup
+            _store.Initialize();
             Guid session1 = Guid.NewGuid(), session2 = Guid.NewGuid();
 
-            var record1 = new LogRecord { SessionId = session1 };
-            var record2 = new LogRecord { SessionId = session2 };
-            var record3 = new LogRecord { SessionId = session1 };
+            var record1 = new LogRecord { SessionId = session1, RecordNumber = 1 };
+            var record2 = new LogRecord { SessionId = session2, RecordNumber = 2 };
+            var record3 = new LogRecord { SessionId = session1, RecordNumber = 3 };
 
             _store.StoreLogRecord(record1);
             _store.StoreLogRecord(record2);
@@ -331,20 +344,21 @@ namespace Lucidity.Tests.Stores
             // Verify
             Assert.IsNotNull(result, "Null list was returned");
             Assert.AreEqual(2, result.Count, "List returned an incorrect number of log records");
-            Assert.IsTrue(result.Contains(record1), "List did not contain record1");
-            Assert.IsTrue(result.Contains(record3), "List did not contain record3");
+            Assert.IsTrue(result.Any(x => x.RecordNumber == record1.RecordNumber), "List did not contain record1");
+            Assert.IsTrue(result.Any(x => x.RecordNumber == record3.RecordNumber), "List did not contain record3");
         }
 
         [TestMethod]
         public void Store_Retrieves_Records_In_Specified_Page()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
-            var record3 = new LogRecord();
-            var record4 = new LogRecord();
-            var record5 = new LogRecord();
-            var record6 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
+            var record3 = new LogRecord { RecordNumber = 3 };
+            var record4 = new LogRecord { RecordNumber = 4 };
+            var record5 = new LogRecord { RecordNumber = 5 };
+            var record6 = new LogRecord { RecordNumber = 6 };
 
             // Act
             _store.StoreLogRecord(record1);
@@ -357,14 +371,15 @@ namespace Lucidity.Tests.Stores
 
             // Verify
             Assert.AreEqual(2, result.Count, "Result contained an incorrect number of elements");
-            Assert.AreEqual(record3, result[0], "First result was incorrect");
-            Assert.AreEqual(record4, result[1], "Second result was incorrect");
+            Assert.AreEqual(record3.RecordNumber, result[0].RecordNumber, "First result was incorrect");
+            Assert.AreEqual(record4.RecordNumber, result[1].RecordNumber, "Second result was incorrect");
         }
 
         [TestMethod]
         public void Can_Get_Total_Number_Of_Records()
         {
             // Setup
+            _store.Initialize();
             var record1 = new LogRecord();
             var record2 = new LogRecord();
             var record3 = new LogRecord();
@@ -390,6 +405,7 @@ namespace Lucidity.Tests.Stores
         public void Can_Get_Total_Number_Of_Records_For_Session()
         {
             // Setup
+            _store.Initialize();
             Guid session1 = Guid.NewGuid(), session2 = Guid.NewGuid();
             var record1 = new LogRecord { SessionId = session1 };
             var record2 = new LogRecord { SessionId = session2 };
@@ -412,9 +428,10 @@ namespace Lucidity.Tests.Stores
         public void Can_Get_Total_Number_For_Filtered_Records()
         {
             // Setup
-            var record1 = new LogRecord();
-            var record2 = new LogRecord();
-            var record3 = new LogRecord();
+            _store.Initialize();
+            var record1 = new LogRecord { RecordNumber = 1 };
+            var record2 = new LogRecord { RecordNumber = 2 };
+            var record3 = new LogRecord { RecordNumber = 3 };
 
             record1.Fields.Add(new LogField { FieldName = "f1", StringValue = "Pass" });
             record2.Fields.Add(new LogField { FieldName = "f1", StringValue = "Fail" });
@@ -439,6 +456,7 @@ namespace Lucidity.Tests.Stores
         public void Store_Returns_Correct_Options_Type()
         {
             // Act
+            _store.Initialize();
             LucidityOptionsBase results = _store.GetStoreOptions();
 
             // Verify
