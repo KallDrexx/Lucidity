@@ -21,6 +21,7 @@ namespace Lucidity.StandardTypes.Parsers
 
         public Guid ParseLog(string logSource)
         {
+            int currentRecordNumber = 1;
             string lineText;
             Guid sessionId = Guid.NewGuid(); // New session ID Per parse call
 
@@ -38,7 +39,7 @@ namespace Lucidity.StandardTypes.Parsers
             // Each line represents a separate log record, each field is delimited with a pipe
             while ((lineText = reader.ReadLine()) != null) 
             {
-                var record = new LogRecord { SessionId = sessionId };
+                var record = new LogRecord { SessionId = sessionId, RecordNumber = currentRecordNumber++ };
 
                 string[] fields = lineText.Split('|');
 

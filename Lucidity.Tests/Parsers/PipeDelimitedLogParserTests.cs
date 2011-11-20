@@ -122,6 +122,24 @@ namespace Lucidity.Tests.Options
         }
 
         [TestMethod]
+        [DeploymentItem(@"TestData\pipeLogTest.txt")]
+        public void Parser_Sets_RecordNumber_Based_On_Order_Record_Is_Parsed_Starting_At_1()
+        {
+            // Setup
+            var parser = new PipeDelimitedLogParser();
+            IList<LogRecord> records = new List<LogRecord>();
+
+            parser.StoreRecordMethod = (r => records.Add(r));
+
+            // Act
+            parser.ParseLog("PipeLogTest.txt");
+
+            // Verify
+            Assert.AreEqual(1, records[0].RecordNumber, "The first record had an incorrect record number");
+            Assert.AreEqual(2, records[1].RecordNumber, "The second record had an incorrect record number");
+        }
+
+        [TestMethod]
         public void Parser_Returns_Correct_Options_Class()
         {
             // Setup

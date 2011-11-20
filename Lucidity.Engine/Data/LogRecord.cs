@@ -14,5 +14,6 @@ namespace Lucidity.Engine.Data
 
         public Guid SessionId { get; set; }
         public IList<LogField> Fields { get; set; }
+        public int RecordNumber { get; set; }
     }
 }
