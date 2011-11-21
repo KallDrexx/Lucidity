@@ -12,7 +12,9 @@ namespace Lucidity.Tests.Stores
     /// <summary>
     /// All stores must pass these tests for log parsing to be consistent
     /// </summary>
-    public class StoreBaseTests
+    [TestClass]
+    [Ignore]
+    public abstract class StoreBaseTests
     {
         protected ILogStore _store;
         protected Type _expectedOptionsType;
