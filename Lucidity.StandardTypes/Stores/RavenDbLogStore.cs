@@ -15,9 +15,11 @@ using Lucidity.StandardTypes.Stores.Options;
 using Lucidity.StandardTypes.Stores.RavenIndices.MapReduceTypes;
 using Raven.Abstractions.Data;
 using Raven.Abstractions.Indexing;
+using System.ComponentModel.Composition;
 
 namespace Lucidity.StandardTypes.Stores
 {
+    [Export(typeof(ILogStore))]
     public class RavenDbLogStore : ILogStore
     {
         public bool UseInMemoryStore { get; set; }
