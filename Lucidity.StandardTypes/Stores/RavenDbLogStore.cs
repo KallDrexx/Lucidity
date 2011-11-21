@@ -8,8 +8,13 @@ using Lucidity.Engine.Data;
 using Raven.Client.Document;
 using Raven.Client;
 using Raven.Client.Embedded;
+using Raven.Client.Indexes;
+using Raven.Client.Linq;
 using Lucidity.StandardTypes.Stores.RavenIndices;
 using Lucidity.StandardTypes.Stores.Options;
+using Lucidity.StandardTypes.Stores.RavenIndices.MapReduceTypes;
+using Raven.Abstractions.Data;
+using Raven.Abstractions.Indexing;
 
 namespace Lucidity.StandardTypes.Stores
 {
@@ -27,6 +32,9 @@ namespace Lucidity.StandardTypes.Stores
                 _store = new EmbeddableDocumentStore { DataDirectory = "ravenData" };
 
             _store.Initialize();
+
+            // Create the indices and facets
+            Raven.Client.Indexes.IndexCreation.CreateIndexes(typeof(LogRecord_LogFieldNamesIndex).Assembly, _store);
         }
 
         public void StoreLogRecord(LogRecord record)
@@ -66,15 +74,14 @@ namespace Lucidity.StandardTypes.Stores
 
         public IList<string> GetLogFieldNames(Guid sessionId)
         {
-            throw new NotImplementedException();
-
-            //using (var session = _store.OpenSession())
-            //{
-            //    return session.Query<LogRecord, LogRecord_LogFieldNamesIndex>()
-            //                  .Where(x => x.SessionId == sessionId)
-            //                  .ToList();
-                              
-            //}
+            using (var session = _store.OpenSession())
+            {
+                return session.Query<LogSessionFieldNames, LogRecord_LogFieldNamesIndex>()
+                              .Where(x => x.SessionId == sessionId)
+                              .Select(x => x.FieldName)
+                              .Customize(x => x.WaitForNonStaleResultsAsOfNow())
+                              .ToList();
+            }
         }
 
         public LucidityOptionsBase GetStoreOptions()
@@ -82,7 +89,7 @@ namespace Lucidity.StandardTypes.Stores
             return _options;
         }
 
-        protected IQueryable<LogRecord> ApplyFiltersToQuery(IQueryable<LogRecord> query, IList<LogFilter> filters)
+        protected IRavenQueryable<LogRecord> ApplyFiltersToQuery(IRavenQueryable<LogRecord> query, IList<LogFilter> filters)
         {
             if (filters == null)
                 return query;

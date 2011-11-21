@@ -94,6 +94,7 @@
     <Compile Include="Stores\Options\RavenDbLogStoreOptions.cs" />
     <Compile Include="Stores\RavenDbLogStore.cs" />
     <Compile Include="Stores\RavenIndices\LogRecord_LogFieldNamesIndex.cs" />
+    <Compile Include="Stores\RavenIndices\MapReduceTypes\LogSessionFieldNames.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lucidity.Engine\Lucidity.Engine.csproj">
