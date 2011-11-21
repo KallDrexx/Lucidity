@@ -75,6 +75,7 @@
             // 
             // btnStoreOptions
             // 
+            this.btnStoreOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnStoreOptions.Location = new System.Drawing.Point(441, 80);
             this.btnStoreOptions.Name = "btnStoreOptions";
             this.btnStoreOptions.Size = new System.Drawing.Size(75, 23);
@@ -85,6 +86,7 @@
             // 
             // btnParserOptions
             // 
+            this.btnParserOptions.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnParserOptions.Location = new System.Drawing.Point(441, 52);
             this.btnParserOptions.Name = "btnParserOptions";
             this.btnParserOptions.Size = new System.Drawing.Size(75, 23);
