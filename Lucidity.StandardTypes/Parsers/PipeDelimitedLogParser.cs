@@ -6,9 +6,9 @@ using Lucidity.Engine.Data;
 using System.IO;
 using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Options;
-using Lucidity.Engine.Options.Parser;
 using System.ComponentModel.Composition;
 using Lucidity.Engine.Parsers;
+using Lucidity.StandardTypes.Parsers.Options;
 
 namespace Lucidity.StandardTypes.Parsers
 {

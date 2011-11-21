@@ -6,8 +6,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Lucidity.Engine.Data;
 using Lucidity.Engine.Stores;
 using Lucidity.Engine.Options;
-using Lucidity.Engine.Options.Store;
 using Lucidity.StandardTypes.Stores;
+using Lucidity.StandardTypes.Stores.Options;
 
 namespace Lucidity.Tests.Stores
 {

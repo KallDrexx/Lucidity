@@ -20,7 +20,6 @@ namespace Lucidity.Tests.Utils
 
             // Verify
             Assert.IsNotNull(result, "Method returned a null result");
-            Assert.AreEqual(1, result.Count, "Incorrect number of stores were returned");
             Assert.IsTrue(result.Any(x => x is InMemoryLogStore), "Result did not contain the InMemoryLogStore");
         }
     }

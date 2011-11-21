@@ -5,7 +5,7 @@ using System.Text;
 using Lucidity.Engine.Data;
 using Lucidity.Engine.Exceptions;
 using Lucidity.Engine.Options;
-using Lucidity.Engine.Options.Store;
+using Lucidity.StandardTypes.Stores.Options;
 using System.ComponentModel.Composition;
 using Lucidity.Engine.Stores;
 
