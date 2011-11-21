@@ -151,24 +151,25 @@ namespace Lucidity.WinForms
 
         private void grvResults_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
+            int row = e.RowIndex + 1;
             LogRecord record = null;
 
             // Check if this record for this row is cached
-            if (_recordCache.ContainsKey(e.RowIndex))
+            if (_recordCache.ContainsKey(row))
             {
-                record = _recordCache[e.RowIndex];
+                record = _recordCache[row];
             }
 
             else
             {
                 // Retrieve the record from the store
-                var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, 1, e.RowIndex);
+                var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, 1, row);
                 if (records.Count > 0)
                 {
                     record = records[0];
 
                     // Store the record in the cache
-                    _recordCache.Add(e.RowIndex, record);
+                    _recordCache.Add(row, record);
                 }
             }
 
