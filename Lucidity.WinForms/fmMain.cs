@@ -151,30 +151,34 @@ namespace Lucidity.WinForms
 
         private void grvResults_CellValueNeeded(object sender, DataGridViewCellValueEventArgs e)
         {
+            const int BATCH_REQUEST_SIZE = 50;
             int row = e.RowIndex + 1;
             LogRecord record = null;
 
             // Check if this record for this row is cached
-            if (_recordCache.ContainsKey(row))
+            if (!_recordCache.ContainsKey(row))
             {
-                record = _recordCache[row];
-            }
+                // Retrieve the requested record + a batch more to speed up operations and lessen queries
+                int page = (row / BATCH_REQUEST_SIZE) + 1;
 
-            else
-            {
-                // Retrieve the record from the store
-                var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, 1, row);
+                var records = _currentStore.GetFilteredRecords(_filters, _currentSessionId, BATCH_REQUEST_SIZE, page);
                 if (records.Count > 0)
                 {
-                    record = records[0];
-
-                    // Store the record in the cache
-                    _recordCache.Add(row, record);
+                    // Add all the records to the cache
+                    for (int x = 0; x < records.Count; x++)
+                        if (!_recordCache.ContainsKey(row + x))
+                            _recordCache.Add(row + x, records[x]);
                 }
             }
 
+            // Get the record from the cache
+            record = _recordCache[row];
+
             if (record != null)
             {
+                // Set the header cell to the record number
+                grvResults.Rows[e.RowIndex].HeaderCell.Value = record.RecordNumber;
+
                 // Match the cell to the field
                 string cellFieldName = grvResults.Columns[e.ColumnIndex].Name;
                 if (record.Fields.Any(x => x.FieldName.Equals(cellFieldName, StringComparison.CurrentCultureIgnoreCase)))
