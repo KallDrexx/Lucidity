@@ -177,7 +177,7 @@ namespace Lucidity.WinForms
             if (record != null)
             {
                 // Set the header cell to the record number
-                grvResults.Rows[e.RowIndex].HeaderCell.Value = record.RecordNumber;
+                grvResults.Rows[e.RowIndex].HeaderCell.Value = record.RecordNumber.ToString();
 
                 // Match the cell to the field
                 string cellFieldName = grvResults.Columns[e.ColumnIndex].Name;
@@ -244,6 +244,7 @@ namespace Lucidity.WinForms
             // Set the number of rows
             var recordCount = _currentStore.GetTotalRecordCount(_filters, _currentSessionId);
             grvResults.RowCount = recordCount;
+            grvResults.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
 
             // Reset the record cache
             _recordCache = new Dictionary<int, LogRecord>();
